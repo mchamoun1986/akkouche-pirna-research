@@ -1,0 +1,1707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERC Starting Grant — TE-TUMOR | Dr. Abdou Akkouche</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #060610;
+            --surface: #0e0e1a;
+            --surface2: #151525;
+            --red: #ff4757;
+            --red-glow: rgba(255,71,87,0.12);
+            --cyan: #00d2d3;
+            --cyan-glow: rgba(0,210,211,0.10);
+            --purple: #a855f7;
+            --purple-glow: rgba(168,85,247,0.10);
+            --gold: #fbbf24;
+            --gold-glow: rgba(251,191,36,0.10);
+            --green: #34d399;
+            --green-glow: rgba(52,211,153,0.10);
+            --text: #e0e0ef;
+            --muted: #8585a8;
+            --dim: #55557a;
+            --paper: #f8f6f2;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.78;
+            overflow-x: hidden;
+        }
+        .ambient {
+            position: fixed; inset: 0; pointer-events: none; z-index: 0;
+            background:
+                radial-gradient(ellipse 600px 400px at 10% 15%, rgba(255,71,87,0.05), transparent),
+                radial-gradient(ellipse 500px 500px at 90% 60%, rgba(168,85,247,0.04), transparent),
+                radial-gradient(ellipse 400px 300px at 50% 90%, rgba(0,210,211,0.03), transparent);
+        }
+        .container {
+            max-width: 940px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== COVER PAGE ===== */
+        .cover {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 0;
+        }
+        .erc-logo-bar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+        .erc-shield {
+            width: 56px; height: 56px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #1a3a8a, #2563eb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+        .erc-logo-text {
+            font-size: 0.72rem;
+            color: var(--dim);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 700;
+            line-height: 1.5;
+        }
+        .cover-badge {
+            display: inline-block;
+            background: var(--red-glow);
+            border: 1px solid rgba(255,71,87,0.25);
+            color: var(--red);
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            padding: 8px 22px;
+            border-radius: 50px;
+            margin-bottom: 28px;
+        }
+        .cover h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+        .cover h1 .gr {
+            background: linear-gradient(135deg, var(--red), var(--purple), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .cover-acronym {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 32px;
+        }
+        .cover-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 28px;
+            border: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 32px;
+        }
+        .cm-item {}
+        .cm-label { font-size: 0.68rem; color: var(--dim); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; }
+        .cm-value { font-size: 0.95rem; font-weight: 700; color: var(--text); }
+        .cover-scroll {
+            position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+            color: var(--dim); font-size: 0.7rem; text-align: center;
+            animation: bounce 2.5s ease infinite;
+        }
+        .cover-scroll .chev {
+            display: block; width: 18px; height: 18px; margin: 6px auto 0;
+            border-right: 2px solid var(--dim); border-bottom: 2px solid var(--dim);
+            transform: rotate(45deg);
+        }
+        @keyframes bounce {
+            0%,100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* ===== NAV / TOC ===== */
+        .toc-section {
+            background: var(--surface);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 24px;
+            padding: 36px 32px;
+            margin: 40px 0;
+        }
+        .toc-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+        }
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 10px;
+        }
+        .toc-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 0.88rem;
+            transition: background 0.2s, color 0.2s;
+        }
+        .toc-item:hover { background: rgba(255,255,255,0.03); color: var(--text); }
+        .toc-num {
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: var(--dim);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.03);
+            flex-shrink: 0;
+        }
+
+        /* ===== GENERIC SECTIONS ===== */
+        section { padding: 60px 0; }
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+            margin: 20px 0;
+        }
+        .label {
+            display: inline-block;
+            font-size: 0.66rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .label.red { color: var(--red); }
+        .label.cyan { color: var(--cyan); }
+        .label.purple { color: var(--purple); }
+        .label.gold { color: var(--gold); }
+        .label.green { color: var(--green); }
+        section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.6rem, 3vw, 2.3rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.25;
+        }
+        section h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-top: 28px;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+        section p, section li {
+            font-family: 'Source Serif 4', 'Inter', serif;
+            color: var(--muted);
+            font-size: 1rem;
+            margin-bottom: 14px;
+        }
+        section ul {
+            padding-left: 20px;
+            margin-bottom: 16px;
+        }
+        section li { margin-bottom: 8px; }
+        strong { color: var(--text); }
+        em { color: var(--muted); }
+
+        /* Reference style */
+        .ref {
+            font-size: 0.78rem;
+            color: var(--purple);
+            font-weight: 600;
+            cursor: help;
+            vertical-align: super;
+            line-height: 0;
+        }
+
+        /* Highlight box */
+        .highlight-box {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 28px 24px;
+            margin: 24px 0;
+            border-left: 4px solid;
+            position: relative;
+        }
+        .highlight-box.purple { border-left-color: var(--purple); }
+        .highlight-box.red { border-left-color: var(--red); }
+        .highlight-box.cyan { border-left-color: var(--cyan); }
+        .highlight-box.gold { border-left-color: var(--gold); }
+        .highlight-box.green { border-left-color: var(--green); }
+        .highlight-box p { font-size: 0.95rem; }
+
+        /* Gap box */
+        .gap-box {
+            background: linear-gradient(135deg, rgba(255,71,87,0.06), rgba(168,85,247,0.05));
+            border: 1px solid rgba(255,71,87,0.15);
+            border-radius: 20px;
+            padding: 28px 24px;
+            margin: 24px 0;
+        }
+        .gap-box h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--red);
+            margin-bottom: 8px;
+        }
+        .gap-box p { font-size: 0.92rem; }
+
+        /* Hypothesis */
+        .hypothesis-banner {
+            background: linear-gradient(135deg, rgba(255,71,87,0.08), rgba(168,85,247,0.06));
+            border: 1px solid rgba(255,71,87,0.2);
+            border-radius: 24px;
+            padding: 40px 32px;
+            margin: 32px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hypothesis-banner::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--red), var(--purple), var(--cyan));
+        }
+        .hypothesis-banner h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 14px;
+            margin-top: 0;
+        }
+        .hypothesis-banner p {
+            font-size: 1.05rem;
+            color: var(--text);
+            max-width: 750px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .keyword { color: var(--red); font-weight: 700; }
+
+        /* Aim cards */
+        .aim-card {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 32px 28px;
+            margin-bottom: 20px;
+            border-left: 4px solid;
+        }
+        .aim-card.a1 { border-left-color: var(--purple); }
+        .aim-card.a2 { border-left-color: var(--cyan); }
+        .aim-card.a3 { border-left-color: var(--red); }
+        .aim-card .aim-badge {
+            display: inline-block;
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 4px 14px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        .a1 .aim-badge { background: var(--purple-glow); color: var(--purple); }
+        .a2 .aim-badge { background: var(--cyan-glow); color: var(--cyan); }
+        .a3 .aim-badge { background: var(--red-glow); color: var(--red); }
+        .aim-card h4 { font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; color: var(--text); }
+        .aim-card p { font-size: 0.92rem; }
+        .task-list { list-style: none; padding: 0; margin: 14px 0; }
+        .task-list li {
+            display: flex; gap: 10px; align-items: flex-start;
+            font-size: 0.88rem; margin-bottom: 8px; padding-left: 0;
+        }
+        .task-id {
+            font-size: 0.68rem; font-weight: 800; color: var(--dim);
+            background: rgba(255,255,255,0.04); padding: 2px 8px; border-radius: 4px;
+            flex-shrink: 0; margin-top: 3px;
+        }
+        .methods-row {
+            display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px;
+        }
+        .method-chip {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            font-size: 0.72rem; font-weight: 600; color: var(--text);
+            padding: 3px 12px; border-radius: 20px;
+        }
+        .expected-result {
+            margin-top: 14px; padding: 14px 18px;
+            background: rgba(255,255,255,0.02); border-radius: 12px;
+            border-left: 3px solid; font-size: 0.88rem;
+        }
+        .a1 .expected-result { border-left-color: var(--purple); }
+        .a2 .expected-result { border-left-color: var(--cyan); }
+        .a3 .expected-result { border-left-color: var(--red); }
+
+        /* Microscopy */
+        .micro-panel {
+            background: var(--surface);
+            border: 1px solid rgba(255,71,87,0.12);
+            border-radius: 20px;
+            padding: 28px 24px;
+            margin: 24px 0;
+        }
+        .micro-panel::before {
+            content: '';
+            display: block;
+            height: 3px;
+            background: linear-gradient(90deg, var(--red), var(--purple));
+            border-radius: 3px;
+            margin: -28px -24px 20px;
+            border-radius: 20px 20px 0 0;
+        }
+        .micro-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .micro-card {
+            border-radius: 12px; overflow: hidden; background: #000;
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: transform 0.3s;
+        }
+        .micro-card:hover { transform: scale(1.03); }
+        .micro-card img { width: 100%; height: auto; display: block; }
+        .micro-lbl { padding: 6px 10px 2px; font-size: 0.72rem; font-weight: 700; }
+        .micro-desc2 { padding: 0 10px 8px; font-size: 0.65rem; color: var(--dim); }
+
+        /* TE data table */
+        .te-panel {
+            background: var(--surface);
+            border: 1px solid rgba(168,85,247,0.12);
+            border-radius: 20px;
+            padding: 28px 24px;
+            margin: 24px 0;
+        }
+        .te-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .te-box {
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            padding: 16px;
+        }
+        .te-box h5 { font-size: 0.85rem; font-weight: 700; margin-bottom: 10px; }
+        .te-box.up h5 { color: var(--red); }
+        .te-box.down h5 { color: var(--cyan); }
+        .te-tbl { width: 100%; border-collapse: collapse; }
+        .te-tbl th {
+            font-size: 0.68rem; font-weight: 700; color: var(--dim);
+            text-transform: uppercase; letter-spacing: 0.5px;
+            text-align: left; padding: 4px 6px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .te-tbl td {
+            font-size: 0.82rem; padding: 5px 6px;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            color: var(--muted);
+        }
+        .te-tbl td:nth-child(2) { text-align: right; font-weight: 700; }
+        .te-tbl .star-row { background: rgba(255,71,87,0.08); }
+        .te-tbl .star-row td { color: var(--text); font-weight: 700; }
+        .fc-up { color: var(--red) !important; }
+        .fc-down { color: var(--cyan) !important; }
+
+        /* Stats bar */
+        .stat-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin: 24px 0;
+        }
+        .stat-item {
+            text-align: center;
+            background: var(--surface);
+            border-radius: 14px;
+            padding: 20px 12px;
+        }
+        .stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+        .stat-desc { font-size: 0.72rem; color: var(--dim); margin-top: 4px; font-family: 'Inter', sans-serif; }
+
+        /* Translation table */
+        .trans-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .trans-table th {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: left;
+            padding: 10px 12px;
+            border-bottom: 2px solid rgba(255,255,255,0.08);
+        }
+        .trans-table td {
+            padding: 10px 12px;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .trans-table .fly { color: var(--purple); font-weight: 700; }
+        .trans-table .human { color: var(--gold); font-weight: 700; }
+        .trans-table .cancer { font-size: 0.82rem; color: var(--red); }
+
+        /* Gantt chart */
+        .gantt {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 28px 20px;
+            margin: 24px 0;
+            overflow-x: auto;
+        }
+        .gantt-hdr {
+            display: flex;
+            margin-bottom: 12px;
+        }
+        .gantt-lbl-col { width: 160px; flex-shrink: 0; }
+        .gantt-years {
+            flex: 1;
+            display: flex;
+            justify-content: space-around;
+            font-size: 0.7rem; font-weight: 700; color: var(--dim);
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .gantt-r {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .gantt-r .gantt-lbl-col {
+            font-size: 0.78rem;
+        }
+        .gantt-r .wp-name { font-weight: 800; display: block; }
+        .gantt-r .wp-sub { font-size: 0.68rem; color: var(--dim); display: block; }
+        .gantt-track {
+            flex: 1;
+            height: 28px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 6px;
+            position: relative;
+        }
+        .g-bar {
+            position: absolute;
+            top: 3px; height: 22px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+        }
+        .g-bar span { font-size: 0.6rem; font-weight: 600; color: rgba(255,255,255,0.7); white-space: nowrap; }
+        .g-ms {
+            position: absolute;
+            top: -4px;
+            width: 18px; height: 18px;
+            background: var(--bg);
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            font-size: 0.55rem; font-weight: 900; color: var(--gold);
+            display: flex; align-items: center; justify-content: center;
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+
+        /* Budget */
+        .budget-bar-row {
+            margin-bottom: 14px;
+        }
+        .budget-bar-row .bar-outer {
+            height: 32px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .budget-bar-row .bar-inner {
+            height: 100%;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 14px;
+        }
+        .budget-bar-row .b-label { font-size: 0.78rem; font-weight: 700; color: #fff; }
+        .budget-bar-row .b-val { font-size: 0.82rem; font-weight: 900; color: #fff; }
+        .budget-bar-row .b-detail { font-size: 0.75rem; color: var(--dim); margin-top: 3px; }
+
+        /* Risk */
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 14px;
+            margin: 20px 0;
+        }
+        .risk-card {
+            background: var(--surface);
+            border-radius: 14px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.04);
+        }
+        .risk-tag {
+            display: inline-block;
+            font-size: 0.62rem; font-weight: 800;
+            letter-spacing: 1px; text-transform: uppercase;
+            padding: 3px 10px; border-radius: 6px; margin-bottom: 6px;
+        }
+        .risk-tag.high { background: var(--red-glow); color: var(--red); }
+        .risk-tag.med { background: var(--gold-glow); color: var(--gold); }
+        .risk-tag.low { background: var(--green-glow); color: var(--green); }
+        .risk-card h4 { font-size: 0.88rem; font-weight: 700; margin-bottom: 6px; }
+        .risk-card p { font-size: 0.82rem; margin: 0; }
+
+        /* Publication plan */
+        .pub-row {
+            display: flex; gap: 16px; align-items: flex-start; margin-bottom: 14px;
+        }
+        .pub-yr {
+            font-size: 0.72rem; font-weight: 800; color: var(--gold);
+            background: var(--gold-glow);
+            padding: 4px 12px; border-radius: 8px;
+            white-space: nowrap; flex-shrink: 0;
+        }
+        .pub-row h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 2px; color: var(--text); }
+        .pub-row .target { font-size: 0.78rem; color: var(--dim); font-style: italic; }
+
+        /* References section */
+        .ref-list {
+            list-style: none;
+            padding: 0;
+            column-count: 1;
+        }
+        .ref-list li {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-bottom: 8px;
+            padding-left: 28px;
+            position: relative;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+        }
+        .ref-list li::before {
+            content: attr(data-num);
+            position: absolute;
+            left: 0;
+            font-weight: 800;
+            color: var(--purple);
+            font-size: 0.72rem;
+        }
+
+        /* Impact box */
+        .impact-final {
+            background: linear-gradient(135deg, rgba(255,71,87,0.08), rgba(168,85,247,0.06), rgba(0,210,211,0.04));
+            border: 1px solid rgba(255,71,87,0.15);
+            border-radius: 24px;
+            padding: 44px 36px;
+            margin: 32px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .impact-final::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--red), var(--purple), var(--cyan), var(--gold));
+        }
+        .impact-final h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            margin-top: 0;
+        }
+        .impact-final p {
+            max-width: 680px;
+            margin: 0 auto 12px;
+            text-align: center;
+        }
+        .final-quote {
+            margin-top: 28px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            font-style: italic;
+            background: linear-gradient(135deg, var(--red), var(--purple), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* PI section */
+        .pi-card {
+            display: flex; gap: 28px; align-items: center;
+            background: var(--surface); border-radius: 20px;
+            padding: 32px 28px; margin: 24px 0;
+            border: 1px solid rgba(168,85,247,0.12);
+        }
+        .pi-avatar {
+            width: 100px; height: 100px;
+            background: linear-gradient(135deg, var(--red), var(--purple), var(--cyan));
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.2rem; font-weight: 900; color: #fff; flex-shrink: 0;
+        }
+        .pi-info h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin: 0 0 4px; }
+        .pi-info p { font-size: 0.88rem; }
+        .pi-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+        .pi-tags span {
+            background: var(--purple-glow); color: var(--purple);
+            font-size: 0.7rem; font-weight: 600;
+            padding: 3px 12px; border-radius: 20px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 50px 0 36px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+        footer p { font-size: 0.75rem; color: var(--dim); margin-bottom: 6px; font-family: 'Inter', sans-serif; }
+        footer a { color: var(--purple); text-decoration: none; }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .micro-grid { grid-template-columns: 1fr; }
+            .te-split { grid-template-columns: 1fr; }
+            .pi-card { flex-direction: column; text-align: center; }
+            .pi-tags { justify-content: center; }
+            .gantt-lbl-col { width: 100px; }
+            .g-bar span { display: none; }
+            .cover-meta { grid-template-columns: 1fr 1fr; }
+        }
+
+        .reveal {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+<div class="ambient"></div>
+
+<!-- ================================================================= -->
+<!-- COVER PAGE                                                         -->
+<!-- ================================================================= -->
+<header class="cover">
+    <div class="container">
+        <div class="erc-logo-bar">
+            <div class="erc-shield">ERC</div>
+            <div class="erc-logo-text">European Research Council<br>Starting Grant 2026</div>
+        </div>
+
+        <span class="cover-badge">Part B &mdash; Scientific Proposal</span>
+
+        <h1>Transposable Elements as <span class="gr">Sensors and Drivers</span> of Epigenetic Instability in Cancer</h1>
+        <div class="cover-acronym">TE-TUMOR</div>
+
+        <div class="cover-meta">
+            <div class="cm-item">
+                <div class="cm-label">Principal Investigator</div>
+                <div class="cm-value">Dr. Abdou Akkouche</div>
+            </div>
+            <div class="cm-item">
+                <div class="cm-label">Host Institution</div>
+                <div class="cm-value">GReD, CNRS / UCA</div>
+            </div>
+            <div class="cm-item">
+                <div class="cm-label">ERC Panel</div>
+                <div class="cm-value">LS3 &mdash; Cellular &amp; Developmental Biology</div>
+            </div>
+            <div class="cm-item">
+                <div class="cm-label">Duration</div>
+                <div class="cm-value">60 months</div>
+            </div>
+            <div class="cm-item">
+                <div class="cm-label">Requested Budget</div>
+                <div class="cm-value">&euro;1,500,000</div>
+            </div>
+            <div class="cm-item">
+                <div class="cm-label">Start Date</div>
+                <div class="cm-value">January 2027</div>
+            </div>
+        </div>
+    </div>
+    <div class="cover-scroll">scroll<span class="chev"></span></div>
+</header>
+
+<!-- ================================================================= -->
+<!-- TABLE OF CONTENTS                                                  -->
+<!-- ================================================================= -->
+<section style="padding-top: 20px;">
+    <div class="container">
+        <div class="toc-section">
+            <h2>Table of Contents</h2>
+            <div class="toc-grid">
+                <a href="#s1" class="toc-item"><span class="toc-num">1</span> Extended Synopsis</a>
+                <a href="#s2" class="toc-item"><span class="toc-num">2</span> Introduction &amp; Background</a>
+                <a href="#s3" class="toc-item"><span class="toc-num">3</span> Gaps in Knowledge</a>
+                <a href="#s4" class="toc-item"><span class="toc-num">4</span> Central Hypothesis</a>
+                <a href="#s5" class="toc-item"><span class="toc-num">5</span> Objectives &amp; Specific Aims</a>
+                <a href="#s6" class="toc-item"><span class="toc-num">6</span> Preliminary Data</a>
+                <a href="#s7" class="toc-item"><span class="toc-num">7</span> Methodology &amp; Work Packages</a>
+                <a href="#s8" class="toc-item"><span class="toc-num">8</span> Timeline &amp; Milestones</a>
+                <a href="#s9" class="toc-item"><span class="toc-num">9</span> Translation to Human Cancer</a>
+                <a href="#s10" class="toc-item"><span class="toc-num">10</span> Budget Justification</a>
+                <a href="#s11" class="toc-item"><span class="toc-num">11</span> Risk Management</a>
+                <a href="#s12" class="toc-item"><span class="toc-num">12</span> Expected Impact &amp; Output</a>
+                <a href="#s13" class="toc-item"><span class="toc-num">13</span> PI Profile &amp; Track Record</a>
+                <a href="#s14" class="toc-item"><span class="toc-num">14</span> References</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================================================================= -->
+<!-- 1. EXTENDED SYNOPSIS                                               -->
+<!-- ================================================================= -->
+<section id="s1">
+    <div class="container reveal">
+        <span class="label red">Section 1</span>
+        <h2>Extended Synopsis</h2>
+
+        <p>
+            Epigenetic deregulation is a hallmark of cancer, yet how it reshapes genome activity beyond classical gene expression remains poorly understood.
+            <strong>Transposable elements (TEs)</strong>, which constitute ~45% of the human genome and ~30% of the <em>Drosophila</em> genome,
+            are normally kept silent by epigenetic mechanisms including DNA methylation, histone modifications, and Polycomb repression<span class="ref" title="Slotkin & Martienssen, 2007">1</span>.
+            However, TE activation is frequently observed in tumors, where it has been linked to genome instability, innate immune signaling, and tumor evolution<span class="ref" title="Burns, 2017">2</span><span class="ref" title="Jang et al., 2019">3</span>.
+        </p>
+        <p>
+            Despite these observations, fundamental questions remain unanswered: <strong>How do oncogenic epigenetic states unlock TE activity?
+            In which tumor cell populations does this occur? And does TE activation contribute to tumor progression or merely accompany it?</strong>
+        </p>
+        <p>
+            <strong>TE-TUMOR</strong> proposes a paradigm shift: rather than treating TEs as passive byproducts of epigenetic chaos, we hypothesize that
+            TEs act as <strong>dynamic sensors and potential drivers of epigenetic instability in cancer</strong>.
+            Our preliminary data provide compelling support: loss of Polycomb repression in the <em>Drosophila</em> eye epithelium induces tumors
+            accompanied by robust, clonal activation of the LTR retrotransposon TABOR — upregulated <strong>173-fold</strong> (log2FC = +7.43, padj &asymp; 0) —
+            in 100% of tumors. Strikingly, TABOR activation correlates with tumor size and is suppressed when the tumor program is blocked,
+            suggesting that TE activation depends on the tumor cell state, not merely on Polycomb loss.
+        </p>
+        <p>
+            This project will: (1) define how Polycomb repression controls TEs in somatic tissues;
+            (2) determine whether RNA interference cooperates with Polycomb to buffer TE activation;
+            (3) uncover how tumor-specific cell states unlock TE expression and characterize its cellular consequences;
+            and (4) translate findings to human cancer by mining TCGA and single-cell datasets for TE signatures in Polycomb-mutant tumors.
+        </p>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ================================================================= -->
+<!-- 2. INTRODUCTION & BACKGROUND                                       -->
+<!-- ================================================================= -->
+<section id="s2">
+    <div class="container reveal">
+        <span class="label purple">Section 2</span>
+        <h2>Introduction &amp; Scientific Background</h2>
+
+        <h3>2.1 Transposable elements: parasites turned genome architects</h3>
+        <p>
+            Transposable elements are mobile DNA sequences that propagate within genomes through copy-paste (retrotransposons)
+            or cut-paste (DNA transposons) mechanisms. Far from being "junk DNA," TEs have profoundly shaped genome evolution
+            by contributing regulatory sequences, novel genes, and structural variation<span class="ref" title="Bourque et al., 2018">4</span>.
+            In humans, TEs account for approximately 45% of genomic DNA, with LINE-1, Alu, and endogenous retroviruses (ERVs)
+            being the most abundant families<span class="ref" title="Lander et al., 2001">5</span>.
+            In <em>Drosophila melanogaster</em>, TEs represent ~30% of the genome, with LTR retrotransposons
+            (including gypsy, copia, and TABOR families) being particularly prevalent<span class="ref" title="Kaminker et al., 2002">6</span>.
+        </p>
+        <p>
+            While TEs drive genome evolution over long timescales, their acute mobilization is dangerous:
+            new insertions can disrupt genes, trigger chromosomal rearrangements, and generate
+            double-stranded DNA breaks<span class="ref" title="Hancks & Kazazian, 2016">7</span>.
+            In animal gonads, the piRNA pathway provides a dedicated defense system against
+            TEs<span class="ref" title="Czech et al., 2018">8</span>.
+            In somatic tissues, however, TE silencing relies primarily on
+            chromatin-based mechanisms and, in <em>Drosophila</em>, the siRNA pathway<span class="ref" title="Chung et al., 2008">9</span>.
+        </p>
+
+        <h3>2.2 Polycomb group proteins: master epigenetic silencers</h3>
+        <p>
+            Polycomb group (PcG) proteins form two principal complexes — PRC1 and PRC2 — that cooperate
+            to establish and maintain transcriptional silencing<span class="ref" title="Schuettengruber et al., 2017">10</span>.
+            PRC2, containing the catalytic subunit E(z)/EZH2, tri-methylates histone H3 at lysine 27 (H3K27me3),
+            creating a repressive chromatin mark recognized by PRC1<span class="ref" title="Margueron & Reinberg, 2011">11</span>.
+            PRC1, containing Polyhomeotic (Ph) and Posterior sex combs (Psc/BMI1), monoubiquitylates H2AK119
+            and compacts chromatin<span class="ref" title="Francis et al., 2004">12</span>.
+        </p>
+        <p>
+            PcG proteins are among the most frequently mutated chromatin regulators in human cancer.
+            <strong>EZH2</strong> is mutated or overexpressed in lymphoma, melanoma, prostate, bladder,
+            and endometrial cancers<span class="ref" title="Kim & Roberts, 2016">13</span>.
+            <strong>BMI1</strong> (Psc homolog) is overexpressed in breast, colorectal, lung, and brain
+            cancers<span class="ref" title="Sahasrabuddhe, 2016">14</span>.
+            <strong>PHC1/2/3</strong> (Ph homologs) are altered in leukemia and medulloblastoma<span class="ref" title="Awad et al., 2013">15</span>.
+            Loss of Polycomb function drives tumorigenesis through deregulation of developmental genes (Hox, Wnt, Notch pathways),
+            but <strong>its impact on transposable element expression in somatic tissues has never been systematically investigated</strong>.
+        </p>
+
+        <h3>2.3 The PI's foundational work: E(z) controls chromatin targeting via dual histone marks</h3>
+        <p>
+            The PI recently demonstrated that E(z) — the <em>Drosophila</em> homolog of EZH2 — plays a critical role
+            in directing the heterochromatin protein Rhino to piRNA source loci via a novel dual-mark recognition mechanism
+            (H3K9me3 + H3K27me3)<span class="ref" title="Akkouche et al., Nature Struct. Mol. Biol. 2025">16</span>.
+            This work established that E(z)-dependent H3K27me3 is not merely a silencing mark but a <strong>specificity
+            determinant</strong> for chromatin protein binding. Importantly, it placed the PI at the unique intersection
+            of Polycomb biology and transposable element regulation — the precise junction that TE-TUMOR now exploits
+            in the cancer context.
+        </p>
+
+        <h3>2.4 TEs in cancer: emerging evidence and open questions</h3>
+        <p>
+            TE activation in cancer has emerged as a topic of intense interest. In human tumors, LINE-1 retrotransposons
+            can mobilize and cause somatic insertions that contribute to tumor
+            evolution<span class="ref" title="Tubio et al., 2014">17</span><span class="ref" title="Rodriguez-Martin et al., 2020">18</span>.
+            Endogenous retroviruses (ERVs) are reactivated in many cancers and can trigger innate immune responses through
+            production of double-stranded RNA (dsRNA) — a phenomenon termed <strong>"viral mimicry"</strong> that
+            can sensitize tumors to immune checkpoint blockade<span class="ref" title="Roulois et al., 2015">19</span><span class="ref" title="Chiappinelli et al., 2015">20</span>.
+        </p>
+        <p>
+            Epigenetic drugs (DNA methyltransferase inhibitors and EZH2 inhibitors) are known to reactivate
+            TEs<span class="ref" title="Topper et al., 2017">21</span>,
+            and the EZH2 inhibitor tazemetostat is now FDA-approved for epithelioid
+            sarcoma<span class="ref" title="Gounder et al., 2020">22</span>.
+            However, whether TE activation contributes to the therapeutic efficacy or represents a dangerous side effect remains unknown.
+        </p>
+        <p>
+            In <em>Drosophila</em>, the powerful genetic toolkit allows precise dissection of cause and consequence
+            at single-cell resolution within intact tissues — a capability that is impossible to achieve in human tumors.
+            The conservation of core epigenetic machinery (E(z)/EZH2, Ph/PHC, Psc/BMI1, Ago2/AGO2)
+            ensures that mechanistic insights from <em>Drosophila</em> can be directly translated to human cancer biology.
+        </p>
+
+        <h3>2.5 <em>Drosophila</em> as a model for epigenetic tumorigenesis</h3>
+        <p>
+            The <em>Drosophila</em> eye imaginal disc provides an ideal model for studying Polycomb-driven tumorigenesis.
+            Loss of PRC1 components (Ph, Psc) in the eye disc leads to neoplastic transformation, tumor growth,
+            and metastasis<span class="ref" title="Martinez et al., 2009">23</span><span class="ref" title="Classen et al., 2009">24</span>.
+            These tumors exhibit hallmarks of human cancer: uncontrolled proliferation, loss of cell polarity,
+            invasion, and activation of conserved oncogenic pathways (JAK-STAT,
+            Zfh1/ZEB)<span class="ref" title="Rossi et al., 2021">25</span>.
+            The short generation time (10 days), powerful genetic tools (Gal4-UAS, FLP-FRT clonal analysis),
+            and accessibility of intact tissues for imaging make this system uniquely suited for the proposed experiments.
+        </p>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ================================================================= -->
+<!-- 3. GAPS IN KNOWLEDGE                                               -->
+<!-- ================================================================= -->
+<section id="s3">
+    <div class="container reveal">
+        <span class="label red">Section 3</span>
+        <h2>Critical Gaps in Knowledge</h2>
+
+        <p>Despite significant advances in both TE biology and cancer epigenetics, four fundamental questions remain unanswered:</p>
+
+        <div class="gap-box">
+            <h4>Gap 1 &mdash; Polycomb control of TEs in somatic tissues is unexplored</h4>
+            <p>
+                While Polycomb's role in regulating developmental genes is well established, its contribution to TE silencing
+                in somatic (non-gonadal) tissues has never been systematically studied<span class="ref" title="Slotkin & Martienssen, 2007">1</span>.
+                The piRNA pathway operates primarily in gonads; how TEs are controlled in somatic tissues where Polycomb
+                is a dominant silencer remains a major open question. Existing TE-cancer studies focus almost exclusively
+                on DNA methylation<span class="ref" title="Roulois et al., 2015">19</span>, leaving the Polycomb-TE axis entirely unexplored.
+            </p>
+        </div>
+
+        <div class="gap-box">
+            <h4>Gap 2 &mdash; TE activation selectivity is unexplained</h4>
+            <p>
+                When epigenetic silencing is disrupted, not all TEs respond equally — some activate, some are further
+                repressed, and most remain unchanged. Our preliminary RNA-seq data illustrate this strikingly:
+                6 TEs are upregulated and 14 are downregulated upon Polycomb loss. <strong>No current model explains
+                this selectivity.</strong> Understanding which defense systems control which TEs — and whether they cooperate
+                or act independently — is critical for predicting TE behavior in cancer.
+            </p>
+        </div>
+
+        <div class="gap-box">
+            <h4>Gap 3 &mdash; The link between tumor cell state and TE activation is unknown</h4>
+            <p>
+                TE activation in cancer is treated as a passive consequence of global epigenetic
+                collapse<span class="ref" title="Burns, 2017">2</span>.
+                No study has asked whether TE activation depends on the <strong>specific tumor cell state</strong>
+                rather than on epigenetic loss alone. Our observation that TABOR activation is suppressed when the tumor
+                program is blocked — even though Polycomb remains absent — challenges this view and suggests a
+                fundamentally different model in which TEs are linked to tumor identity.
+            </p>
+        </div>
+
+        <div class="gap-box">
+            <h4>Gap 4 &mdash; Cellular consequences of TE activation in tumors are unmapped</h4>
+            <p>
+                While TE activation has been correlated with genome instability and immune signaling at the population
+                level<span class="ref" title="Jang et al., 2019">3</span>,
+                no study has mapped TE activation at <strong>single-cell resolution within intact tumors</strong>
+                and correlated it with cellular stress markers (DNA damage, dsRNA, apoptosis, proliferation).
+                Bulk approaches average signal across millions of cells, obscuring the critical question:
+                <strong>are TE-active cells the ones that are dividing, dying, or both?</strong>
+            </p>
+        </div>
+
+        <div class="highlight-box purple">
+            <p>
+                <strong>TE-TUMOR addresses all four gaps simultaneously.</strong> By combining genetic models of Polycomb-driven
+                tumorigenesis with single-cell imaging of TE expression and cellular stress markers, we will determine how
+                Polycomb loss, tumor cell identity, and TE activation are mechanistically connected — and establish whether
+                TEs are passive markers or active contributors to tumor biology.
+            </p>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ================================================================= -->
+<!-- 4. CENTRAL HYPOTHESIS                                              -->
+<!-- ================================================================= -->
+<section id="s4">
+    <div class="container reveal">
+        <span class="label gold">Section 4</span>
+        <h2>Central Hypothesis</h2>
+
+        <div class="hypothesis-banner">
+            <h3>TE-TUMOR Hypothesis</h3>
+            <p>
+                Epigenetic tumor states created by the loss of chromatin repressors such as Polycomb
+                <span class="keyword">unlock transposable element expression</span> in specific tumor cell populations,
+                where TE activation may contribute to <span class="keyword">genome instability</span>,
+                <span class="keyword">cellular stress responses</span>, and <span class="keyword">tumor heterogeneity</span>.
+            </p>
+        </div>
+
+        <p>
+            This hypothesis makes three testable predictions:
+        </p>
+        <ul>
+            <li><strong>Prediction 1:</strong> Polycomb complexes directly silence a defined subset of TEs in somatic tissues, and this silencing cooperates with the siRNA pathway.</li>
+            <li><strong>Prediction 2:</strong> TE activation in tumors depends on the establishment of a specific tumor cell state (defined by JAK-STAT/Zfh1 signaling), not merely on Polycomb loss.</li>
+            <li><strong>Prediction 3:</strong> TE-active tumor cells exhibit elevated markers of genome instability (&gamma;H2Av), antiviral response (dsRNA/J2), and altered cell fate (proliferation or apoptosis).</li>
+        </ul>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ================================================================= -->
+<!-- 5. OBJECTIVES & SPECIFIC AIMS                                      -->
+<!-- ================================================================= -->
+<section id="s5">
+    <div class="container reveal">
+        <span class="label cyan">Section 5</span>
+        <h2>Objectives &amp; Specific Aims</h2>
+
+        <div class="aim-card a1">
+            <span class="aim-badge">Aim 1 &mdash; Months 1-30</span>
+            <h4>Define how Polycomb repression controls transposable elements in somatic tissues</h4>
+            <p>
+                <strong>Rationale:</strong> PcG complexes are major chromatin repressors, but their role in TE regulation in somatic tissues
+                remains poorly understood. Our preliminary data show that loss of Polyhomeotic (PRC1) induces selective TE deregulation
+                (6 up, 14 down), suggesting Polycomb contributes to TE control but cooperates with additional mechanisms.
+            </p>
+            <ul class="task-list">
+                <li><span class="task-id">T1.1</span> Generate PRC1 (Ph, Psc) and PRC2 (E(z), Su(z)12) knockdowns in eye imaginal discs using Ey-Gal4</li>
+                <li><span class="task-id">T1.2</span> Perform strand-specific, ribo-depleted RNA-seq (3 biological replicates per genotype) to identify all deregulated TEs</li>
+                <li><span class="task-id">T1.3</span> Validate top TE candidates by RT-qPCR and single-molecule RNA-FISH</li>
+                <li><span class="task-id">T1.4</span> Perform H3K27me3 and H3K9me3 CUT&RUN in wild-type and mutant eye discs to map chromatin state at TEs</li>
+                <li><span class="task-id">T1.5</span> Bioinformatic integration: correlate TE expression changes with chromatin mark loss/gain</li>
+            </ul>
+            <div class="methods-row">
+                <span class="method-chip">Strand-specific RNA-seq</span>
+                <span class="method-chip">CUT&RUN</span>
+                <span class="method-chip">RT-qPCR</span>
+                <span class="method-chip">RNA-FISH (smFISH)</span>
+                <span class="method-chip">DESeq2</span>
+                <span class="method-chip">Drosophila genetics</span>
+            </div>
+            <div class="expected-result">
+                <strong>Expected result:</strong> A complete map of Polycomb-dependent vs. independent TEs in somatic tissue.
+                Identification of which TE families are directly silenced by H3K27me3 vs. controlled by other mechanisms.
+                <br><strong>Deliverable:</strong> Publication (target: Genes &amp; Development or EMBO Journal).
+            </div>
+        </div>
+
+        <div class="aim-card a2">
+            <span class="aim-badge">Aim 2 &mdash; Months 9-36</span>
+            <h4>Test whether RNA interference cooperates with Polycomb to buffer TE activation</h4>
+            <p>
+                <strong>Rationale:</strong> In <em>Drosophila</em> somatic tissues, the endo-siRNA pathway (Ago2-dependent) is a major TE defense
+                mechanism<span class="ref" title="Chung et al., 2008">9</span>.
+                We hypothesize that RNAi acts as a compensatory buffer when Polycomb silencing is compromised — explaining why only a
+                subset of TEs escape in Polycomb mutants.
+            </p>
+            <ul class="task-list">
+                <li><span class="task-id">T2.1</span> Profile small RNA populations (siRNAs, miRNAs) in eye discs by small RNA-seq (oxidized + non-oxidized)</li>
+                <li><span class="task-id">T2.2</span> Identify TE-targeting endo-siRNAs and map their genomic origins</li>
+                <li><span class="task-id">T2.3</span> Generate Polycomb + Ago2 double mutant clones (Ph<sup>-</sup>; Ago2<sup>-</sup>) using FLP-FRT mosaic analysis</li>
+                <li><span class="task-id">T2.4</span> Compare TE activation profiles: single vs. double mutants (RNA-seq + RNA-FISH)</li>
+                <li><span class="task-id">T2.5</span> Test whether combined loss enhances tumorigenesis and/or genome instability (&gamma;H2Av staining)</li>
+            </ul>
+            <div class="methods-row">
+                <span class="method-chip">Small RNA-seq</span>
+                <span class="method-chip">FLP-FRT clonal analysis</span>
+                <span class="method-chip">Ago2 mutants</span>
+                <span class="method-chip">Combinatorial genetics</span>
+                <span class="method-chip">&gamma;H2Av immunostaining</span>
+            </div>
+            <div class="expected-result">
+                <strong>Expected result:</strong> If RNAi buffers TE activation, double mutants will show synergistic TE derepression far exceeding
+                either single mutant. This would establish the first layered defense model for somatic TE control.
+                <br><strong>Deliverable:</strong> Publication (target: Molecular Cell or EMBO Journal).
+            </div>
+        </div>
+
+        <div class="aim-card a3">
+            <span class="aim-badge">Aim 3 &mdash; Months 12-48</span>
+            <h4>Determine how tumor cell states unlock TE activation and characterize its cellular consequences</h4>
+            <p>
+                <strong>Rationale:</strong> Our preliminary data reveal that TABOR activation depends on the tumor state (Zfh1/Stat92E program),
+                not merely on Polycomb loss. This aim will mechanistically dissect this link and map the cellular consequences of
+                TE activation at single-cell resolution within intact tumors.
+            </p>
+            <ul class="task-list">
+                <li><span class="task-id">T3.1</span> Characterize TABOR activation dynamics across tumor developmental stages (early clones &rarr; late tumors)</li>
+                <li><span class="task-id">T3.2</span> Test tumor-state dependency: Zfh1 RNAi, Stat92E RNAi, and Stat92E dominant-negative in Polycomb-deficient background</li>
+                <li><span class="task-id">T3.3</span> Combine TE RNA-FISH (TABOR, BLASTOPIA, DM1731) with immunostaining for:
+                    <br>&bull; Genome instability: &gamma;H2Av (DNA double-strand breaks)
+                    <br>&bull; Antiviral response: J2 antibody (dsRNA detection)
+                    <br>&bull; Cell proliferation: PH3 (mitotic index)
+                    <br>&bull; Apoptosis: Dcp1 (effector caspase)
+                </li>
+                <li><span class="task-id">T3.4</span> Quantitative single-cell image analysis: co-expression scoring, spatial correlation mapping</li>
+                <li><span class="task-id">T3.5</span> Functional tests: TE-directed RNAi (knockdown of TABOR/BLASTOPIA in tumors) to test whether TE silencing modifies tumor behavior</li>
+            </ul>
+            <div class="methods-row">
+                <span class="method-chip">Multiplex RNA-FISH</span>
+                <span class="method-chip">&gamma;H2Av / J2 / PH3 / Dcp1</span>
+                <span class="method-chip">Confocal microscopy</span>
+                <span class="method-chip">Single-cell quantification</span>
+                <span class="method-chip">TE-directed RNAi</span>
+            </div>
+            <div class="expected-result">
+                <strong>Expected result:</strong> First single-cell spatial map of TE activation correlated with stress markers in tumors.
+                Determination of whether TE-active cells are preferentially dying, dividing, or stressed.
+                <br><strong>Deliverable:</strong> High-impact publication (target: Nature, Science, or Cell).
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ================================================================= -->
+<!-- 6. PRELIMINARY DATA                                                -->
+<!-- ================================================================= -->
+<section id="s6">
+    <div class="container reveal">
+        <span class="label gold">Section 6</span>
+        <h2>Preliminary Data</h2>
+
+        <p>
+            We present two key datasets that establish the feasibility and novelty of TE-TUMOR:
+            (i) confocal microscopy showing TABOR RNA activation in Polycomb-deficient tumors, and
+            (ii) genome-wide RNA-seq revealing selective TE deregulation upon Polyhomeotic knockdown.
+        </p>
+
+        <h3>6.1 TABOR is massively activated in Polycomb-deficient tumors</h3>
+        <p>
+            Using the Ey-Gal4 driver to knock down Psc and Su(z)2 in the eye imaginal disc, we observe
+            robust tumor formation accompanied by striking TABOR activation detected by RNA-FISH.
+            Red signal (TABOR RNA) is specifically enriched in tumor tissue and absent from adjacent wild-type regions.
+        </p>
+
+        <div class="micro-panel">
+            <h3 style="margin-top: 0;">Figure 1: TABOR RNA-FISH in Ey&gt;Psc, Su(z)2 KD eye disc tumors</h3>
+            <p style="font-size: 0.82rem; color: var(--dim); margin-bottom: 16px;">Blue = DAPI (nuclei) &middot; Red = TABOR RNA-FISH &middot; Genotype: Ey-Gal4 &gt; UAS-Psc RNAi, UAS-Su(z)2 RNAi</p>
+            <div class="micro-grid">
+                <div class="micro-card">
+                    <img src="img/dapi_control.png" alt="DAPI">
+                    <div class="micro-lbl">DAPI (nuclei)</div>
+                    <div class="micro-desc2">Tumor morphology visible — overgrown, disorganized tissue</div>
+                </div>
+                <div class="micro-card">
+                    <img src="img/tabor_only.png" alt="TABOR">
+                    <div class="micro-lbl" style="color: var(--red);">TABOR RNA (red)</div>
+                    <div class="micro-desc2">Massive activation across tumor tissue — absent from non-tumor regions</div>
+                </div>
+                <div class="micro-card">
+                    <img src="img/merge_tabor.png" alt="Merge">
+                    <div class="micro-lbl" style="color: var(--purple);">Merge</div>
+                    <div class="micro-desc2">TABOR signal colocalizes specifically with tumorous areas</div>
+                </div>
+            </div>
+            <div class="micro-grid" style="margin-top: 10px;">
+                <div class="micro-card">
+                    <img src="img/dapi_sample2.png" alt="DAPI sample 2">
+                    <div class="micro-lbl">Sample 2 &mdash; DAPI</div>
+                </div>
+                <div class="micro-card">
+                    <img src="img/tabor_red.png" alt="TABOR sample 2">
+                    <div class="micro-lbl" style="color: var(--red);">Sample 2 &mdash; TABOR</div>
+                </div>
+                <div class="micro-card">
+                    <img src="img/merge_sample2.png" alt="Merge sample 2">
+                    <div class="micro-lbl" style="color: var(--purple);">Sample 2 &mdash; Merge</div>
+                </div>
+            </div>
+        </div>
+
+        <h3>6.2 RNA-seq reveals selective TE deregulation upon Polyhomeotic loss</h3>
+        <p>
+            Differential expression analysis (DESeq2) comparing Ph knockdown to control eye discs reveals
+            <strong>1,414 significantly deregulated features</strong> (padj &lt; 0.05), including 1,394 genes and
+            <strong>20 transposable elements</strong>. Critically, TE responses are <strong>selective</strong>:
+            6 are upregulated and 14 are downregulated, arguing against non-specific epigenetic collapse.
+        </p>
+
+        <div class="te-panel">
+            <h3 style="margin-top: 0;">Figure 2: Differentially expressed TEs (Ph KD vs. control)</h3>
+            <p style="font-size: 0.82rem; color: var(--dim); margin-bottom: 12px;">DESeq2 &middot; padj &lt; 0.05 &middot; Strand-specific RNA-seq &middot; Eye imaginal discs</p>
+            <div class="te-split">
+                <div class="te-box up">
+                    <h5>6 TEs upregulated &uarr;</h5>
+                    <table class="te-tbl">
+                        <tr><th>TE Family</th><th>log2FC</th></tr>
+                        <tr class="star-row"><td>TABOR</td><td class="fc-up">+7.43</td></tr>
+                        <tr><td>DM1731</td><td class="fc-up">+4.07</td></tr>
+                        <tr><td>MDG1</td><td class="fc-up">+2.77</td></tr>
+                        <tr><td>BLASTOPIA</td><td class="fc-up">+2.60</td></tr>
+                        <tr><td>TRANSPAC</td><td class="fc-up">+2.51</td></tr>
+                        <tr><td>GTWIN</td><td class="fc-up">+2.21</td></tr>
+                    </table>
+                </div>
+                <div class="te-box down">
+                    <h5>14 TEs downregulated &darr;</h5>
+                    <table class="te-tbl">
+                        <tr><th>TE Family</th><th>log2FC</th></tr>
+                        <tr><td>ZAM</td><td class="fc-down">-6.16</td></tr>
+                        <tr><td>HETA</td><td class="fc-down">-3.87</td></tr>
+                        <tr><td>TAHRE</td><td class="fc-down">-3.77</td></tr>
+                        <tr><td>TART_B1</td><td class="fc-down">-3.70</td></tr>
+                        <tr><td>TC1-2_DM</td><td class="fc-down">-3.53</td></tr>
+                        <tr><td>HOBO</td><td class="fc-down">-3.07</td></tr>
+                        <tr><td>ROO</td><td class="fc-down">-2.25</td></tr>
+                        <tr><td colspan="2" style="color: var(--dim); font-size: 0.75rem;">+ 7 additional families</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="stat-bar">
+            <div class="stat-item">
+                <div class="stat-num" style="color: var(--red);">173&times;</div>
+                <div class="stat-desc">TABOR upregulation</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num" style="color: var(--purple);">1,414</div>
+                <div class="stat-desc">Significant features</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num" style="color: var(--cyan);">6&uarr; / 14&darr;</div>
+                <div class="stat-desc">TEs up vs. down</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num" style="color: var(--gold);">100%</div>
+                <div class="stat-desc">Tumor penetrance</div>
+            </div>
+        </div>
+
+        <div class="highlight-box red">
+            <p>
+                <strong>Key interpretation:</strong> The selectivity of TE response (LTR retrotransposons up, telomeric elements HETA/TAHRE/TART down)
+                demonstrates that Polycomb loss does not cause non-specific chromatin decompaction. Instead, different TE families are controlled by
+                different — and potentially layered — silencing mechanisms. TABOR's extreme upregulation (log2FC = +7.43, the highest of any feature)
+                and its correlation with tumor state make it an ideal molecular sensor for investigating the link between epigenetic tumor identity and TE activation.
+            </p>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ================================================================= -->
+<!-- 7. METHODOLOGY & WORK PACKAGES                                     -->
+<!-- ================================================================= -->
+<section id="s7">
+    <div class="container reveal">
+        <span class="label purple">Section 7</span>
+        <h2>Methodology &amp; Work Packages</h2>
+
+        <h3>7.1 Model system</h3>
+        <p>
+            All experiments use the <em>Drosophila melanogaster</em> eye imaginal disc system.
+            Polycomb mutations are introduced using the Ey-Gal4 driver (eye-specific expression) combined with
+            UAS-RNAi constructs. Clonal analysis uses the FLP-FRT system for mosaic tissue generation.
+            Temporal control is achieved using Gal80<sup>ts</sup> temperature-sensitive repression.
+        </p>
+
+        <h3>7.2 Key technologies</h3>
+        <ul>
+            <li><strong>Transcriptomics:</strong> Strand-specific, ribo-depleted RNA-seq with TE-aware quantification pipeline (TEtranscripts/SQuIRE<span class="ref" title="Jin et al., 2015">26</span>)</li>
+            <li><strong>Chromatin profiling:</strong> CUT&RUN for H3K27me3, H3K9me3, H2AK119ub (low-input, high-resolution<span class="ref" title="Skene & Henikoff, 2017">27</span>)</li>
+            <li><strong>Small RNA-seq:</strong> Oxidized (NaIO4) and non-oxidized libraries to distinguish siRNAs from piRNAs</li>
+            <li><strong>Single-molecule RNA-FISH:</strong> Stellaris probes for individual TEs + HCR-FISH for signal amplification</li>
+            <li><strong>Multiplexed imaging:</strong> RNA-FISH combined with immunofluorescence (&gamma;H2Av, J2, PH3, Dcp1) on same tissue</li>
+            <li><strong>Quantitative image analysis:</strong> Custom CellProfiler/QuPath pipelines for single-cell co-expression scoring</li>
+        </ul>
+
+        <h3>7.3 Work package summary</h3>
+        <div class="highlight-box gold" style="padding: 20px 24px;">
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+                    <th style="text-align: left; padding: 8px; font-size: 0.78rem; color: var(--dim);">WP</th>
+                    <th style="text-align: left; padding: 8px; font-size: 0.78rem; color: var(--dim);">Title</th>
+                    <th style="text-align: left; padding: 8px; font-size: 0.78rem; color: var(--dim);">Months</th>
+                    <th style="text-align: left; padding: 8px; font-size: 0.78rem; color: var(--dim);">Personnel</th>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.03);">
+                    <td style="padding: 8px; color: var(--purple); font-weight: 800;">WP1</td>
+                    <td style="padding: 8px; font-size: 0.9rem;">Polycomb &amp; TE control</td>
+                    <td style="padding: 8px; font-size: 0.9rem;">1–30</td>
+                    <td style="padding: 8px; font-size: 0.9rem;">Postdoc + PI</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.03);">
+                    <td style="padding: 8px; color: var(--cyan); font-weight: 800;">WP2</td>
+                    <td style="padding: 8px; font-size: 0.9rem;">RNAi + Polycomb cooperation</td>
+                    <td style="padding: 8px; font-size: 0.9rem;">9–36</td>
+                    <td style="padding: 8px; font-size: 0.9rem;">PhD Student + PI</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.03);">
+                    <td style="padding: 8px; color: var(--red); font-weight: 800;">WP3</td>
+                    <td style="padding: 8px; font-size: 0.9rem;">Tumor states &amp; TE consequences</td>
+                    <td style="padding: 8px; font-size: 0.9rem;">12–48</td>
+                    <td style="padding: 8px; font-size: 0.9rem;">Postdoc + PhD Student</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.03);">
+                    <td style="padding: 8px; color: var(--gold); font-weight: 800;">WP4</td>
+                    <td style="padding: 8px; font-size: 0.9rem;">Human cancer translation</td>
+                    <td style="padding: 8px; font-size: 0.9rem;">33–60</td>
+                    <td style="padding: 8px; font-size: 0.9rem;">Eng. + PI</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; color: var(--green); font-weight: 800;">WP5</td>
+                    <td style="padding: 8px; font-size: 0.9rem;">Integration &amp; framework</td>
+                    <td style="padding: 8px; font-size: 0.9rem;">39–60</td>
+                    <td style="padding: 8px; font-size: 0.9rem;">PI + full team</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ================================================================= -->
+<!-- 8. TIMELINE & MILESTONES                                           -->
+<!-- ================================================================= -->
+<section id="s8">
+    <div class="container reveal">
+        <span class="label green">Section 8</span>
+        <h2>Timeline &amp; Milestones</h2>
+
+        <div class="gantt">
+            <div class="gantt-hdr">
+                <div class="gantt-lbl-col"></div>
+                <div class="gantt-years">
+                    <span>Year 1</span><span>Year 2</span><span>Year 3</span><span>Year 4</span><span>Year 5</span>
+                </div>
+            </div>
+            <div class="gantt-r">
+                <div class="gantt-lbl-col"><span class="wp-name" style="color: var(--purple);">WP1</span><span class="wp-sub">Polycomb &amp; TEs</span></div>
+                <div class="gantt-track">
+                    <div class="g-bar" style="left:0%;width:50%;background:linear-gradient(90deg,var(--purple),rgba(168,85,247,0.3));"><span>RNA-seq + CUT&RUN + FISH</span></div>
+                    <div class="g-ms" style="left:50%;">D1</div>
+                </div>
+            </div>
+            <div class="gantt-r">
+                <div class="gantt-lbl-col"><span class="wp-name" style="color: var(--cyan);">WP2</span><span class="wp-sub">RNAi cooperation</span></div>
+                <div class="gantt-track">
+                    <div class="g-bar" style="left:15%;width:45%;background:linear-gradient(90deg,var(--cyan),rgba(0,210,211,0.3));"><span>Small RNA-seq + double KD</span></div>
+                    <div class="g-ms" style="left:60%;">D2</div>
+                </div>
+            </div>
+            <div class="gantt-r">
+                <div class="gantt-lbl-col"><span class="wp-name" style="color: var(--red);">WP3</span><span class="wp-sub">Tumor &amp; TE consequences</span></div>
+                <div class="gantt-track">
+                    <div class="g-bar" style="left:20%;width:56%;background:linear-gradient(90deg,var(--red),rgba(255,71,87,0.3));"><span>TABOR + stress markers + imaging</span></div>
+                    <div class="g-ms" style="left:76%;">D3</div>
+                </div>
+            </div>
+            <div class="gantt-r">
+                <div class="gantt-lbl-col"><span class="wp-name" style="color: var(--gold);">WP4</span><span class="wp-sub">Human translation</span></div>
+                <div class="gantt-track">
+                    <div class="g-bar" style="left:55%;width:45%;background:linear-gradient(90deg,var(--gold),rgba(251,191,36,0.3));"><span>TCGA + scRNA-seq + clinics</span></div>
+                    <div class="g-ms" style="left:95%;">D4</div>
+                </div>
+            </div>
+            <div class="gantt-r">
+                <div class="gantt-lbl-col"><span class="wp-name" style="color: var(--green);">WP5</span><span class="wp-sub">Synthesis</span></div>
+                <div class="gantt-track">
+                    <div class="g-bar" style="left:65%;width:35%;background:linear-gradient(90deg,var(--green),rgba(52,211,153,0.3));"><span>Framework + review</span></div>
+                    <div class="g-ms" style="left:95%;">D5</div>
+                </div>
+            </div>
+        </div>
+
+        <h3>Key milestones</h3>
+        <ul>
+            <li><strong>M12:</strong> Complete TE expression atlas for all Polycomb genotypes (WP1)</li>
+            <li><strong>M18:</strong> Small RNA landscape characterized; Ago2 double mutants generated (WP2)</li>
+            <li><strong>M24:</strong> First publication submitted — Polycomb-TE control (WP1)</li>
+            <li><strong>M30:</strong> Tumor-state dependency of TABOR confirmed or refuted (WP3) — <em>Go/no-go decision point</em></li>
+            <li><strong>M36:</strong> Single-cell TE-stress co-expression map complete (WP3)</li>
+            <li><strong>M42:</strong> Human TCGA analysis completed (WP4)</li>
+            <li><strong>M48:</strong> Flagship publication submitted (WP3)</li>
+            <li><strong>M54:</strong> Human validation data compiled (WP4)</li>
+            <li><strong>M60:</strong> Synthesis review + follow-up grant submitted (WP5)</li>
+        </ul>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ================================================================= -->
+<!-- 9. TRANSLATION TO HUMAN CANCER                                     -->
+<!-- ================================================================= -->
+<section id="s9">
+    <div class="container reveal">
+        <span class="label gold">Section 9</span>
+        <h2>Translation to Human Cancer</h2>
+
+        <h3>9.1 Conservation of molecular machinery</h3>
+        <p>The core molecular components investigated in TE-TUMOR are deeply conserved between <em>Drosophila</em> and humans:</p>
+
+        <table class="trans-table">
+            <tr><th>Drosophila</th><th></th><th>Human</th><th>Cancer relevance</th></tr>
+            <tr>
+                <td class="fly">E(z)</td><td>=</td><td class="human">EZH2</td>
+                <td class="cancer">Mutated in lymphoma, melanoma, prostate, bladder, endometrial cancers. FDA-approved inhibitor (tazemetostat).</td>
+            </tr>
+            <tr>
+                <td class="fly">Polyhomeotic (Ph)</td><td>=</td><td class="human">PHC1/2/3</td>
+                <td class="cancer">Altered in leukemia, medulloblastoma, osteosarcoma.</td>
+            </tr>
+            <tr>
+                <td class="fly">Psc</td><td>=</td><td class="human">BMI1</td>
+                <td class="cancer">Overexpressed in breast, colorectal, lung, brain cancers. Cancer stem cell marker.</td>
+            </tr>
+            <tr>
+                <td class="fly">Ago2 / endo-siRNAs</td><td>=</td><td class="human">AGO2 / DICER1</td>
+                <td class="cancer">DICER1 mutations in ovarian and thyroid cancers. RNAi deregulated broadly.</td>
+            </tr>
+            <tr>
+                <td class="fly">Stat92E / Zfh1</td><td>=</td><td class="human">STAT3 / ZEB1</td>
+                <td class="cancer">Major oncogenic drivers. ZEB1 drives EMT; STAT3 constitutively active in many cancers.</td>
+            </tr>
+        </table>
+
+        <h3>9.2 Planned human data analysis (WP4)</h3>
+        <ul>
+            <li>Mine <strong>TCGA datasets</strong> (n &gt; 10,000 tumors) for TE expression patterns in EZH2/BMI1/PHC-mutant vs. wild-type tumors across all cancer types</li>
+            <li>Analyze published <strong>single-cell RNA-seq atlases</strong> for cell-state-specific TE activation signatures</li>
+            <li>Correlate TE activation with <strong>innate immune signatures</strong> (interferon response genes, dsRNA sensing pathways)</li>
+            <li>Cross-reference with <strong>patient survival data</strong> to assess prognostic value of TE signatures</li>
+            <li>Establish <strong>clinical collaborations</strong> for validation in patient tumor samples (Centre Jean Perrin, Clermont-Ferrand)</li>
+        </ul>
+
+        <h3>9.3 Clinical implications</h3>
+        <div class="highlight-box gold">
+            <p>
+                <strong>EZH2 inhibitors and TE activation:</strong> Tazemetostat (FDA-approved) and other EZH2 inhibitors are expected to reactivate specific TEs.
+                Our framework predicts which TEs will respond and in which cell types. This could be therapeutically exploited through
+                <strong>viral mimicry</strong> (TE-driven immune activation sensitizing tumors to checkpoint immunotherapy<span class="ref" title="Roulois et al., 2015">19</span>),
+                or represent a risk if TE activation drives genome instability. Understanding this is critical for the ~15 ongoing EZH2 inhibitor clinical trials.
+            </p>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ================================================================= -->
+<!-- 10. BUDGET                                                         -->
+<!-- ================================================================= -->
+<section id="s10">
+    <div class="container reveal">
+        <span class="label cyan">Section 10</span>
+        <h2>Budget Justification</h2>
+
+        <div class="budget-bar-row">
+            <div class="bar-outer"><div class="bar-inner" style="width: 47%; background: var(--purple);"><span class="b-label">Personnel</span><span class="b-val">&euro;700,000</span></div></div>
+            <span class="b-detail">1 Postdoctoral researcher (60 months) + 1 PhD student (36 months) + 1 Research engineer (24 months, bioinformatics)</span>
+        </div>
+        <div class="budget-bar-row">
+            <div class="bar-outer"><div class="bar-inner" style="width: 30%; background: var(--cyan);"><span class="b-label">Consumables &amp; Sequencing</span><span class="b-val">&euro;450,000</span></div></div>
+            <span class="b-detail">RNA-seq (24 libraries &times; &euro;2K), CUT&RUN (18 libs), small RNA-seq (12 libs), RNA-FISH probes, fly genetics, antibodies, reagents</span>
+        </div>
+        <div class="budget-bar-row">
+            <div class="bar-outer"><div class="bar-inner" style="width: 13%; background: var(--gold);"><span class="b-label">Equipment &amp; Travel</span><span class="b-val">&euro;200,000</span></div></div>
+            <span class="b-detail">Confocal microscopy access fees, computational cluster, conferences (EMBO, Keystone, Gordon), collaborator visits</span>
+        </div>
+        <div class="budget-bar-row">
+            <div class="bar-outer"><div class="bar-inner" style="width: 10%; background: var(--green);"><span class="b-label">Overhead &amp; Other</span><span class="b-val">&euro;150,000</span></div></div>
+            <span class="b-detail">Host institution overhead, publication costs, open access fees, data management</span>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ================================================================= -->
+<!-- 11. RISK MANAGEMENT                                                -->
+<!-- ================================================================= -->
+<section id="s11">
+    <div class="container reveal">
+        <span class="label red">Section 11</span>
+        <h2>Risk Management &amp; Contingencies</h2>
+
+        <div class="risk-grid">
+            <div class="risk-card">
+                <span class="risk-tag high">High impact</span>
+                <h4>TE signals too weak for single-cell FISH in tumors</h4>
+                <p><strong>Mitigation:</strong> TABOR shows 173x upregulation — among the strongest possible signals.
+                We use HCR-FISH for amplification. If needed, shift to smFISH with branched DNA amplification.
+                <em>Drosophila</em> tissues are thin and accessible, unlike human biopsies.</p>
+            </div>
+            <div class="risk-card">
+                <span class="risk-tag med">Medium impact</span>
+                <h4>Polycomb + Ago2 double mutants lethal</h4>
+                <p><strong>Mitigation:</strong> FLP-FRT clonal analysis generates mutant patches in wild-type tissue.
+                Temporal control via Gal80<sup>ts</sup>. Alternative: partial RNAi knockdown titration series.</p>
+            </div>
+            <div class="risk-card">
+                <span class="risk-tag med">Medium impact</span>
+                <h4>TABOR tumor-state dependency not confirmed</h4>
+                <p><strong>Mitigation:</strong> M30 go/no-go decision. If TABOR dependency is not confirmed,
+                we pivot to DM1731 or BLASTOPIA (also upregulated). A negative result still yields a publication
+                defining TE-tumor-state independence.</p>
+            </div>
+            <div class="risk-card">
+                <span class="risk-tag med">Medium impact</span>
+                <h4>Human TE patterns diverge from fly predictions</h4>
+                <p><strong>Mitigation:</strong> Divergence is scientifically interesting — reveals lineage-specific TE control.
+                Fly model provides stand-alone mechanistic value. WP4 is designed as validation, not as the project's foundation.</p>
+            </div>
+            <div class="risk-card">
+                <span class="risk-tag low">Low impact</span>
+                <h4>Recruitment delays</h4>
+                <p><strong>Mitigation:</strong> PI embedded in GReD (major French genetics center) with strong PhD programs (Ecole Doctorale SVSAE)
+                and international postdoc recruitment networks. Timeline includes 3-month hiring buffer.</p>
+            </div>
+            <div class="risk-card">
+                <span class="risk-tag low">Low impact</span>
+                <h4>Sequencing bottlenecks</h4>
+                <p><strong>Mitigation:</strong> GReD has on-site access to the GenomAuvergne sequencing platform.
+                Backup: commercial providers (Novogene, BGI) with &lt;4 week turnaround.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ================================================================= -->
+<!-- 12. EXPECTED IMPACT & OUTPUT                                       -->
+<!-- ================================================================= -->
+<section id="s12">
+    <div class="container reveal">
+        <span class="label green">Section 12</span>
+        <h2>Expected Impact &amp; Output</h2>
+
+        <h3>12.1 Scientific impact</h3>
+        <div class="impact-final">
+            <h3>TE-TUMOR will establish a new conceptual framework</h3>
+            <p>
+                Transposable elements as <strong>dynamic sensors and potential drivers</strong> of epigenetic instability in cancer.
+                This reframes TEs from passive genome residents to active participants in tumor biology.
+            </p>
+            <p>
+                By linking Polycomb dysfunction, tumor cell identity, and TE activation at single-cell resolution,
+                this project will provide the first mechanistic understanding of <strong>why specific TEs wake up in specific tumor states</strong>.
+            </p>
+        </div>
+
+        <h3>12.2 Publication plan</h3>
+        <div class="pub-row"><span class="pub-yr">Year 2</span><div><h4>Paper 1: Polycomb controls TEs in somatic tissues</h4><span class="target">Target: Genes &amp; Development / EMBO Journal</span></div></div>
+        <div class="pub-row"><span class="pub-yr">Year 3</span><div><h4>Paper 2: Polycomb-RNAi layered defense against TEs</h4><span class="target">Target: Molecular Cell / EMBO Journal</span></div></div>
+        <div class="pub-row"><span class="pub-yr">Year 4</span><div><h4>Paper 3: Tumor-state-dependent TE activation (flagship)</h4><span class="target">Target: Nature / Science / Cell</span></div></div>
+        <div class="pub-row"><span class="pub-yr">Year 5</span><div><h4>Paper 4: TE signatures in human Polycomb-mutant cancers</h4><span class="target">Target: Nature Cancer / Cancer Discovery</span></div></div>
+        <div class="pub-row"><span class="pub-yr">Year 5</span><div><h4>Paper 5: Perspective — TEs as sensors of epigenetic instability</h4><span class="target">Target: Nature Reviews Cancer / Nature Reviews Genetics</span></div></div>
+
+        <h3>12.3 Training &amp; open science</h3>
+        <ul>
+            <li><strong>Training:</strong> 1 PhD thesis + 2–3 Master's internships. International conference presentations.</li>
+            <li><strong>Open science:</strong> All sequencing data deposited in GEO/SRA upon publication. Analysis pipelines released on GitHub. Preprints on bioRxiv.</li>
+            <li><strong>Outreach:</strong> Science communication through institutional channels and public science festivals.</li>
+        </ul>
+
+        <div class="impact-final" style="margin-top: 36px;">
+            <span class="label" style="color: #fff; margin-bottom: 8px; display: block;">The Case for Funding</span>
+            <p style="font-size: 1.05rem;">
+                <strong>1.</strong> We have discovered that TE activation in tumors is <strong>tied to the tumor cell state itself</strong> — not random epigenetic collapse. No one else has reported this.
+            </p>
+            <p style="font-size: 1.05rem;">
+                <strong>2.</strong> The PI has <strong>published proof</strong> (<em>Nature Struct. Mol. Biol.</em>, 2025) that the exact Polycomb enzyme at the center of this project controls chromatin targeting via a novel dual-mark code.
+            </p>
+            <p style="font-size: 1.05rem;">
+                <strong>3.</strong> This project will create a <strong>paradigm shift</strong> — with direct translational relevance through EZH2 therapeutics, viral mimicry immunotherapy, and TE-based cancer biomarkers.
+            </p>
+            <div class="final-quote">
+                "We don't just study what happens when epigenetic locks break.<br>
+                We study what escapes — and what it does to the cell."
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ================================================================= -->
+<!-- 13. PI PROFILE                                                     -->
+<!-- ================================================================= -->
+<section id="s13">
+    <div class="container reveal">
+        <span class="label purple">Section 13</span>
+        <h2>Principal Investigator &mdash; Track Record</h2>
+
+        <div class="pi-card">
+            <div class="pi-avatar">AA</div>
+            <div class="pi-info">
+                <h3>Dr. Abdou Akkouche</h3>
+                <p>
+                    Researcher at GReD (G&eacute;n&eacute;tique, Reproduction et D&eacute;veloppement), CNRS / Universit&eacute; Clermont Auvergne.
+                    Expert in epigenetics, transposable element biology, piRNA pathways, and chromatin regulation.
+                </p>
+                <div class="pi-tags">
+                    <span>Epigenetics</span>
+                    <span>Transposable Elements</span>
+                    <span>piRNA Biology</span>
+                    <span>Polycomb</span>
+                    <span>Drosophila Genetics</span>
+                    <span>Cancer Epigenetics</span>
+                    <span>RNA Interference</span>
+                </div>
+            </div>
+        </div>
+
+        <h3>Key publications</h3>
+        <ul>
+            <li><strong>Akkouche, A.</strong> et al. Binding of heterochromatin protein Rhino to a subset of piRNA clusters depends on a combination of two histone marks. <em>Nature Struct. Mol. Biol.</em> <strong>32</strong>, 1517–1527 (2025).<span class="ref">16</span></li>
+            <li>Additional publications in transposable element biology, piRNA pathways, and chromatin regulation (see full CV in Part A).</li>
+        </ul>
+
+        <h3>Competitive advantages</h3>
+        <ul>
+            <li><strong>Unique expertise:</strong> One of very few researchers combining deep Polycomb mechanistic knowledge with TE biology expertise</li>
+            <li><strong>Published foundation:</strong> The Nature Struct. Mol. Biol. paper directly establishes E(z) as a TE regulator — the exact premise of TE-TUMOR</li>
+            <li><strong>Preliminary data:</strong> TABOR discovery provides strong, unpublished preliminary data that no competing group possesses</li>
+            <li><strong>Institutional support:</strong> GReD provides state-of-the-art imaging (confocal, super-resolution), genomics (GenomAuvergne), and fly facilities</li>
+        </ul>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ================================================================= -->
+<!-- 14. REFERENCES                                                     -->
+<!-- ================================================================= -->
+<section id="s14">
+    <div class="container reveal">
+        <span class="label cyan">Section 14</span>
+        <h2>References</h2>
+
+        <ol class="ref-list">
+            <li data-num="1">Slotkin, R. K. & Martienssen, R. Transposable elements and the epigenetic regulation of the genome. <em>Nat. Rev. Genet.</em> <strong>8</strong>, 272–285 (2007).</li>
+            <li data-num="2">Burns, K. H. Transposable elements in cancer. <em>Nat. Rev. Cancer</em> <strong>17</strong>, 415–424 (2017).</li>
+            <li data-num="3">Jang, H. S. et al. Transposable elements drive widespread expression of oncogenes in human cancers. <em>Nat. Genet.</em> <strong>51</strong>, 611–617 (2019).</li>
+            <li data-num="4">Bourque, G. et al. Ten things you should know about transposable elements. <em>Genome Biol.</em> <strong>19</strong>, 199 (2018).</li>
+            <li data-num="5">Lander, E. S. et al. Initial sequencing and analysis of the human genome. <em>Nature</em> <strong>409</strong>, 860–921 (2001).</li>
+            <li data-num="6">Kaminker, J. S. et al. The transposable elements of the <em>Drosophila melanogaster</em> euchromatin: a genomics perspective. <em>Genome Biol.</em> <strong>3</strong>, RESEARCH0084 (2002).</li>
+            <li data-num="7">Hancks, D. C. & Kazazian, H. H. Roles for retrotransposon insertions in human disease. <em>Mob. DNA</em> <strong>7</strong>, 9 (2016).</li>
+            <li data-num="8">Czech, B. et al. piRNA-guided genome defense: from biogenesis to silencing. <em>Annu. Rev. Genet.</em> <strong>52</strong>, 131–157 (2018).</li>
+            <li data-num="9">Chung, W.-J. et al. Endogenous RNA interference provides a somatic defense against <em>Drosophila</em> transposons. <em>Curr. Biol.</em> <strong>18</strong>, 795–802 (2008).</li>
+            <li data-num="10">Schuettengruber, B. et al. Genome regulation by Polycomb and Trithorax: 70 years and counting. <em>Cell</em> <strong>171</strong>, 34–57 (2017).</li>
+            <li data-num="11">Margueron, R. & Reinberg, D. The Polycomb complex PRC2 and its mark in life. <em>Nature</em> <strong>469</strong>, 343–349 (2011).</li>
+            <li data-num="12">Francis, N. J. et al. Chromatin compaction by a Polycomb group protein complex. <em>Science</em> <strong>306</strong>, 1574–1577 (2004).</li>
+            <li data-num="13">Kim, K. H. & Roberts, C. W. M. Targeting EZH2 in cancer. <em>Nat. Med.</em> <strong>22</strong>, 128–134 (2016).</li>
+            <li data-num="14">Sahasrabuddhe, A. A. BMI1: a biomarker of hematologic malignancies. <em>Biomark. Cancer</em> <strong>8</strong>, 65–75 (2016).</li>
+            <li data-num="15">Awad, S. et al. Mutation in PHC1 implicates chromatin remodeling in primary microcephaly pathogenesis. <em>Hum. Mol. Genet.</em> <strong>22</strong>, 2200–2213 (2013).</li>
+            <li data-num="16"><strong>Akkouche, A.</strong> et al. Binding of heterochromatin protein Rhino to a subset of piRNA clusters depends on a combination of two histone marks. <em>Nat. Struct. Mol. Biol.</em> <strong>32</strong>, 1517–1527 (2025).</li>
+            <li data-num="17">Tubio, J. M. C. et al. Extensive transduction of nonrepetitive DNA mediated by L1 retrotransposition in cancer genomes. <em>Science</em> <strong>345</strong>, 1251343 (2014).</li>
+            <li data-num="18">Rodriguez-Martin, B. et al. Pan-cancer analysis of whole genomes identifies driver rearrangements promoted by LINE-1 retrotransposition. <em>Nat. Genet.</em> <strong>52</strong>, 306–319 (2020).</li>
+            <li data-num="19">Roulois, D. et al. DNA-demethylating agents target colorectal cancer cells by inducing viral mimicry by endogenous transcripts. <em>Cell</em> <strong>162</strong>, 961–973 (2015).</li>
+            <li data-num="20">Chiappinelli, K. B. et al. Inhibiting DNA methylation causes an interferon response in cancer via dsRNA including endogenous retroviruses. <em>Cell</em> <strong>162</strong>, 974–986 (2015).</li>
+            <li data-num="21">Topper, M. J. et al. Epigenetic therapy ties MYC depletion to reversing immune evasion and treating lung cancer. <em>Cell</em> <strong>171</strong>, 1284–1300 (2017).</li>
+            <li data-num="22">Gounder, M. et al. Tazemetostat in advanced epithelioid sarcoma with loss of INI1/SMARCB1: an international, open-label, phase 2 basket study. <em>Lancet Oncol.</em> <strong>21</strong>, 1423–1432 (2020).</li>
+            <li data-num="23">Martinez, A.-M. et al. Polyhomeotic has a tumor suppressor activity mediated by repression of Notch signaling. <em>Nat. Genet.</em> <strong>41</strong>, 1076–1082 (2009).</li>
+            <li data-num="24">Classen, A.-K. et al. A tumor suppressor activity of <em>Drosophila</em> Polycomb genes mediated by JAK-STAT signaling. <em>Nat. Genet.</em> <strong>41</strong>, 1150–1155 (2009).</li>
+            <li data-num="25">Rossi, F. et al. An in vivo genetic screen in <em>Drosophila</em> identifies the orthologue of human cancer/testis gene SPO11/MEIOB as a novel tumor suppressor. <em>PLoS Genet.</em> <strong>17</strong>, e1009875 (2021).</li>
+            <li data-num="26">Jin, Y. et al. TEtranscripts: a package for including transposable elements in differential expression analysis of RNA-seq datasets. <em>Bioinformatics</em> <strong>31</strong>, 3593–3599 (2015).</li>
+            <li data-num="27">Skene, P. J. & Henikoff, S. An efficient targeted nuclease strategy for high-resolution mapping of DNA binding sites. <em>eLife</em> <strong>6</strong>, e21856 (2017).</li>
+        </ol>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p><strong>TE-TUMOR</strong> &mdash; ERC Starting Grant Proposal 2026</p>
+        <p>Dr. Abdou Akkouche &middot; GReD, CNRS / Universit&eacute; Clermont Auvergne</p>
+        <p style="margin-top: 8px;"><a href="https://doi.org/10.1038/s41594-025-01584-8" target="_blank" rel="noopener">PI's Nature Struct. Mol. Biol. publication (2025) &rarr;</a></p>
+    </div>
+</footer>
+
+<script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
