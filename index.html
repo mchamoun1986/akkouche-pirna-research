@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdou Akkouche — How Cells Protect Their DNA | Nature Structural & Molecular Biology</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --surface: #12121a;
+            --surface2: #1a1a28;
+            --accent: #6c5ce7;
+            --accent2: #a29bfe;
+            --accent3: #00cec9;
+            --gold: #fdcb6e;
+            --text: #e8e8f0;
+            --muted: #8888aa;
+            --danger: #ff6b6b;
+            --success: #00b894;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-grid {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(108,92,231,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0,206,201,0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 80%, rgba(253,203,110,0.04) 0%, transparent 50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .dna-strand {
+            position: fixed;
+            right: -60px;
+            top: 0;
+            width: 120px;
+            height: 100%;
+            opacity: 0.04;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .dna-strand::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 100%;
+            background: repeating-linear-gradient(
+                to bottom,
+                var(--accent) 0px, var(--accent) 20px,
+                transparent 20px, transparent 40px
+            );
+            left: 30px;
+            animation: dnaScroll 8s linear infinite;
+        }
+
+        .dna-strand::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 100%;
+            background: repeating-linear-gradient(
+                to bottom,
+                var(--accent3) 10px, var(--accent3) 30px,
+                transparent 30px, transparent 50px
+            );
+            right: 30px;
+            animation: dnaScroll 8s linear infinite reverse;
+        }
+
+        @keyframes dnaScroll {
+            from { transform: translateY(0); }
+            to { transform: translateY(-80px); }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(108,92,231,0.15);
+            border: 1px solid rgba(108,92,231,0.3);
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent2);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 32px;
+            animation: fadeIn 1s ease;
+        }
+
+        .badge .dot {
+            width: 8px; height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.3); }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.4rem, 5vw, 3.8rem);
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 28px;
+            animation: fadeUp 1s ease 0.2s both;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--accent2), var(--accent3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--muted);
+            max-width: 680px;
+            animation: fadeUp 1s ease 0.4s both;
+            margin-bottom: 40px;
+        }
+
+        .author-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: var(--surface);
+            border: 1px solid rgba(108,92,231,0.2);
+            border-radius: 20px;
+            padding: 24px 28px;
+            animation: fadeUp 1s ease 0.6s both;
+            max-width: 600px;
+        }
+
+        .author-avatar {
+            width: 64px; height: 64px;
+            background: linear-gradient(135deg, var(--accent), var(--accent3));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            font-weight: 800;
+            flex-shrink: 0;
+            color: white;
+        }
+
+        .author-info h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .author-info p {
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        .journal-tag {
+            display: inline-block;
+            background: rgba(253,203,110,0.12);
+            color: var(--gold);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 6px;
+            margin-top: 6px;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* SCROLL INDICATOR */
+        .scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--muted);
+            font-size: 0.75rem;
+            animation: bounce 2s ease infinite;
+        }
+
+        .scroll-hint .arrow {
+            width: 24px; height: 24px;
+            border-right: 2px solid var(--muted);
+            border-bottom: 2px solid var(--muted);
+            transform: rotate(45deg);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent3);
+            margin-bottom: 16px;
+        }
+
+        section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            font-weight: 800;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        section p {
+            color: var(--muted);
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+            max-width: 750px;
+        }
+
+        /* ANALOGY CARDS */
+        .analogy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .analogy-card {
+            background: var(--surface);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 20px;
+            padding: 32px 28px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .analogy-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(108,92,231,0.3);
+        }
+
+        .analogy-card .icon {
+            font-size: 2.4rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .analogy-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .analogy-card p {
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin-bottom: 0;
+        }
+
+        .analogy-card .glow {
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(108,92,231,0.08), transparent 70%);
+            pointer-events: none;
+        }
+
+        /* VISUAL EXPLAINER */
+        .visual-block {
+            background: var(--surface);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 24px;
+            padding: 48px 40px;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .visual-block::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent3), var(--gold));
+        }
+
+        .dna-visual {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .dna-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dna-row .label {
+            width: 130px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-align: right;
+            color: var(--muted);
+            flex-shrink: 0;
+        }
+
+        .mark-bar {
+            height: 32px;
+            border-radius: 8px;
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mark-bar.k9 {
+            background: linear-gradient(90deg, rgba(108,92,231,0.3), rgba(108,92,231,0.6), rgba(108,92,231,0.2));
+        }
+
+        .mark-bar.k27 {
+            background: linear-gradient(90deg, rgba(0,206,201,0.2), rgba(0,206,201,0.5), rgba(0,206,201,0.15));
+        }
+
+        .mark-bar.rhino {
+            background: linear-gradient(90deg, rgba(253,203,110,0.15), rgba(253,203,110,0.6), rgba(253,203,110,0.15));
+            animation: shimmer 3s ease infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        .mark-bar .bar-label {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .mark-bar.k9 .bar-label { color: var(--accent2); }
+        .mark-bar.k27 .bar-label { color: var(--accent3); }
+        .mark-bar.rhino .bar-label { color: var(--gold); }
+
+        /* STEP TIMELINE */
+        .timeline {
+            margin: 40px 0;
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 14px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent), var(--accent3), var(--gold));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .timeline-item::before {
+            content: attr(data-step);
+            position: absolute;
+            left: -40px;
+            top: 2px;
+            width: 30px;
+            height: 30px;
+            background: var(--surface2);
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--accent2);
+        }
+
+        .timeline-item h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .timeline-item p {
+            font-size: 0.92rem;
+            color: var(--muted);
+        }
+
+        /* KEY FINDINGS */
+        .findings-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .finding-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 24px;
+            border-left: 3px solid var(--accent);
+            transition: border-color 0.3s;
+        }
+
+        .finding-item:nth-child(2) { border-left-color: var(--accent3); }
+        .finding-item:nth-child(3) { border-left-color: var(--gold); }
+        .finding-item:nth-child(4) { border-left-color: var(--success); }
+
+        .finding-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--accent);
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .finding-item:nth-child(2) .finding-num { color: var(--accent3); }
+        .finding-item:nth-child(3) .finding-num { color: var(--gold); }
+        .finding-item:nth-child(4) .finding-num { color: var(--success); }
+
+        .finding-text h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .finding-text p {
+            font-size: 0.88rem;
+            color: var(--muted);
+            margin-bottom: 0;
+        }
+
+        /* IMPACT SECTION */
+        .impact-box {
+            background: linear-gradient(135deg, rgba(108,92,231,0.1), rgba(0,206,201,0.08));
+            border: 1px solid rgba(108,92,231,0.2);
+            border-radius: 24px;
+            padding: 48px 40px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .impact-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+        }
+
+        .impact-box p {
+            max-width: 600px;
+            margin: 0 auto 12px;
+            text-align: center;
+        }
+
+        /* STATS */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 24px 16px;
+        }
+
+        .stat-item .num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent2), var(--accent3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-item .desc {
+            font-size: 0.78rem;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        /* QUOTE */
+        .quote-block {
+            border-left: 3px solid var(--accent);
+            padding: 20px 28px;
+            margin: 32px 0;
+            background: rgba(108,92,231,0.05);
+            border-radius: 0 16px 16px 0;
+        }
+
+        .quote-block p {
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+
+        .quote-block cite {
+            display: block;
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: var(--muted);
+            font-style: normal;
+        }
+
+        /* AUTHOR SPOTLIGHT */
+        .spotlight {
+            background: var(--surface);
+            border-radius: 24px;
+            padding: 48px 40px;
+            margin: 40px 0;
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            border: 1px solid rgba(108,92,231,0.15);
+        }
+
+        .spotlight-avatar {
+            width: 120px; height: 120px;
+            background: linear-gradient(135deg, var(--accent), var(--accent3));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            font-weight: 900;
+            flex-shrink: 0;
+            color: white;
+        }
+
+        .spotlight-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+        }
+
+        .spotlight-content p {
+            font-size: 0.95rem;
+        }
+
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .tag {
+            background: rgba(108,92,231,0.12);
+            color: var(--accent2);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 60px 0 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: var(--muted);
+            font-size: 0.8rem;
+        }
+
+        footer a {
+            color: var(--accent2);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 640px) {
+            .spotlight {
+                flex-direction: column;
+                text-align: center;
+                padding: 32px 24px;
+            }
+            .tag-row { justify-content: center; }
+            .visual-block { padding: 28px 20px; }
+            .dna-row .label { width: 80px; font-size: 0.7rem; }
+            .author-card { flex-direction: column; text-align: center; }
+            .impact-box { padding: 32px 24px; }
+        }
+
+        /* Scroll animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="dna-strand"></div>
+
+<!-- HERO -->
+<header class="hero">
+    <div class="container">
+        <div class="badge"><span class="dot"></span> Published in Nature Structural & Molecular Biology, 2025</div>
+
+        <h1>How Cells Use a <span class="highlight">Secret Code</span> to Protect Their DNA</h1>
+
+        <p class="hero-subtitle">
+            A groundbreaking discovery showing how cells read two chemical "tags" on DNA packaging
+            to silence dangerous jumping genes — explained so anyone can understand it.
+        </p>
+
+        <div class="author-card">
+            <div class="author-avatar">AA</div>
+            <div class="author-info">
+                <h3>Dr. Abdou Akkouche</h3>
+                <p>First Author &amp; Lead Researcher</p>
+                <span class="journal-tag">Nature Struct. Mol. Biol. &mdash; Vol. 32, pp 1517&ndash;1527</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="scroll-hint">
+        scroll to explore
+        <div class="arrow"></div>
+    </div>
+</header>
+
+<!-- THE PROBLEM -->
+<section>
+    <div class="container reveal">
+        <span class="section-label">The Problem</span>
+        <h2>Our DNA has uninvited guests</h2>
+        <p>
+            Hidden inside your DNA are thousands of tiny fragments called <strong>transposable elements</strong> — think of them as
+            <strong>"copy-paste bugs"</strong> that can jump around and insert themselves anywhere in your genome. If left unchecked,
+            they can break genes, cause mutations, and even <strong>make organisms infertile</strong>.
+        </p>
+        <p>
+            Cells have evolved an elegant defense system called the <strong>piRNA pathway</strong> — small molecules that act like an
+            <strong>immune system for your DNA</strong>. But scientists didn't fully understand how cells know exactly
+            <em>where</em> to find the instructions to make these defense molecules.
+        </p>
+
+        <div class="analogy-grid">
+            <div class="analogy-card">
+                <span class="icon">🧬</span>
+                <h3>Transposable Elements</h3>
+                <p>Imagine viruses that live <em>inside</em> your DNA. They copy-paste themselves everywhere, potentially causing chaos.</p>
+                <div class="glow"></div>
+            </div>
+            <div class="analogy-card">
+                <span class="icon">🛡️</span>
+                <h3>piRNA Pathway</h3>
+                <p>The cell's internal security system. It creates tiny RNA molecules that hunt down and silence these DNA invaders.</p>
+                <div class="glow"></div>
+            </div>
+            <div class="analogy-card">
+                <span class="icon">📍</span>
+                <h3>piRNA Clusters</h3>
+                <p>Special "libraries" in the genome that store records of past invaders — used to produce defense molecules.</p>
+                <div class="glow"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ANALOGY -->
+<section>
+    <div class="container reveal">
+        <span class="section-label">The Big Idea — Simplified</span>
+        <h2>A security guard that reads two stamps</h2>
+
+        <div class="quote-block">
+            <p>"We discovered that the protein Rhino doesn't just look for one chemical tag to find the right spot on DNA — it needs
+            to see <strong>two tags together</strong>, like a security guard checking both your ID card and your badge before letting you through."</p>
+            <cite>— Simplified from the paper's findings</cite>
+        </div>
+
+        <p>
+            Your DNA is wrapped around small protein balls called <strong>histones</strong> — like thread around spools.
+            Cells stick tiny chemical tags (called <strong>methylation marks</strong>) on these spools. Each tag is a different "color code."
+        </p>
+        <p>
+            The key discovery: the protein <strong>Rhino</strong> — the master organizer of the piRNA defense system — only sits down at locations
+            that carry <strong>two specific tags at the same time</strong>:
+        </p>
+
+        <div class="visual-block">
+            <h3 style="margin-bottom: 8px;">The Two-Tag Code</h3>
+            <p style="font-size: 0.9rem;">Rhino only binds where both marks overlap — this is the "secret handshake"</p>
+
+            <div class="dna-visual">
+                <div class="dna-row">
+                    <span class="label">Tag #1</span>
+                    <div class="mark-bar k9">
+                        <span class="bar-label">H3K9me3 — "Silence zone"</span>
+                    </div>
+                </div>
+                <div class="dna-row">
+                    <span class="label">Tag #2</span>
+                    <div class="mark-bar k27">
+                        <span class="bar-label">H3K27me3 — "Extra lock"</span>
+                    </div>
+                </div>
+                <div class="dna-row">
+                    <span class="label">Rhino binds</span>
+                    <div class="mark-bar rhino">
+                        <span class="bar-label">RHINO — "Defense activated"</span>
+                    </div>
+                </div>
+            </div>
+
+            <p style="font-size: 0.85rem; color: var(--accent2); margin: 0;">
+                Where both tags overlap = Rhino sits down = piRNAs are produced = jumping genes get silenced
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+    <div class="container reveal">
+        <span class="section-label">How It Works</span>
+        <h2>The discovery, step by step</h2>
+        <p>
+            Working with fruit flies (<em>Drosophila</em>), which share many biological mechanisms with humans,
+            the team uncovered a previously unknown layer of genome defense.
+        </p>
+
+        <div class="timeline">
+            <div class="timeline-item" data-step="1">
+                <h3>They screened for genes involved in silencing</h3>
+                <p>The team systematically turned off genes one by one in fruit fly reproductive cells and checked which ones caused "jumping genes" to wake up. One stood out: <strong>E(z)</strong>, an enzyme that adds the second chemical tag (H3K27me3).</p>
+            </div>
+            <div class="timeline-item" data-step="2">
+                <h3>They mapped the chemical tags across the genome</h3>
+                <p>Using advanced techniques (ChIP-seq and CUT&RUN), they created a high-resolution map showing where both tags — H3K9me3 and H3K27me3 — sit on the DNA. They found these tags overlap at key defense locations.</p>
+            </div>
+            <div class="timeline-item" data-step="3">
+                <h3>They found Rhino prefers dual-tagged sites</h3>
+                <p>Rhino strongly preferred sitting at regions carrying <strong>both</strong> tags over regions with only one. This was the crucial insight — it's not a single signal, it's a <strong>combination code</strong>.</p>
+            </div>
+            <div class="timeline-item" data-step="4">
+                <h3>They discovered two recruitment modes</h3>
+                <p>Rhino reaches its targets via two independent paths: one guided by a protein called <strong>Kipferl</strong>, and the newly discovered path depending on <strong>E(z)</strong> and the dual-tag system. These two modes cover different defense regions.</p>
+            </div>
+            <div class="timeline-item" data-step="5">
+                <h3>They tested Rhino's reading mechanism</h3>
+                <p>Using structural modeling and mutations, they showed that Rhino reads both tags through its <strong>chromodomain</strong> — a specialized "reading head" — confirming the dual-mark recognition happens at the molecular level.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- KEY FINDINGS -->
+<section>
+    <div class="container reveal">
+        <span class="section-label">Key Findings</span>
+        <h2>What this paper proves</h2>
+
+        <div class="findings-grid">
+            <div class="finding-item">
+                <span class="finding-num">01</span>
+                <div class="finding-text">
+                    <h4>Dual histone marks guide genome defense</h4>
+                    <p>The combination of H3K9me3 + H3K27me3 marks is what tells the Rhino protein exactly where to sit, solving a long-standing mystery of why Rhino only binds certain silent regions.</p>
+                </div>
+            </div>
+            <div class="finding-item">
+                <span class="finding-num">02</span>
+                <div class="finding-text">
+                    <h4>E(z) enzyme is essential for a subset of piRNA clusters</h4>
+                    <p>The enzyme E(z) adds the H3K27me3 tag. Without it, major defense hubs like the 42AB cluster lose Rhino binding and piRNA production collapses — jumping genes reactivate.</p>
+                </div>
+            </div>
+            <div class="finding-item">
+                <span class="finding-num">03</span>
+                <div class="finding-text">
+                    <h4>Two independent paths to genome protection</h4>
+                    <p>Cells have evolved redundancy: the Kipferl-dependent path and the newly discovered E(z)-dependent path ensure comprehensive coverage of all defense loci.</p>
+                </div>
+            </div>
+            <div class="finding-item">
+                <span class="finding-num">04</span>
+                <div class="finding-text">
+                    <h4>A new principle in chromatin biology</h4>
+                    <p>This is one of the first demonstrations that a protein's binding specificity is determined by reading two histone marks simultaneously — a "combinatorial code" that could apply broadly across biology.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- STATS -->
+<section>
+    <div class="container reveal">
+        <span class="section-label">By The Numbers</span>
+        <h2>The scale of this research</h2>
+
+        <div class="stats-row">
+            <div class="stat-item">
+                <div class="num">1,629</div>
+                <div class="desc">Rhino binding sites identified</div>
+            </div>
+            <div class="stat-item">
+                <div class="num">463</div>
+                <div class="desc">Kipferl-independent sites (newly characterized)</div>
+            </div>
+            <div class="stat-item">
+                <div class="num">13</div>
+                <div class="desc">Jumping gene families reactivated when E(z) is lost</div>
+            </div>
+            <div class="stat-item">
+                <div class="num">0.927</div>
+                <div class="desc">AUC accuracy using both marks to predict piRNA clusters</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHY IT MATTERS -->
+<section>
+    <div class="container reveal">
+        <div class="impact-box">
+            <span class="section-label">Why It Matters</span>
+            <h3>Beyond the fruit fly</h3>
+            <p>
+                Transposable elements make up <strong>nearly half</strong> of the human genome. Understanding how organisms control them
+                is fundamental to understanding fertility, aging, cancer, and genetic diseases.
+            </p>
+            <p>
+                This discovery of a <strong>combinatorial histone code</strong> for protein targeting opens new research directions — not just
+                for piRNA biology, but for understanding how any protein finds its correct place on the genome.
+            </p>
+            <p style="color: var(--accent2); font-weight: 600;">
+                The principle that proteins read multiple chromatin marks simultaneously could reshape our understanding of gene regulation.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- AUTHOR SPOTLIGHT -->
+<section>
+    <div class="container reveal">
+        <span class="section-label">Lead Author</span>
+
+        <div class="spotlight">
+            <div class="spotlight-avatar">AA</div>
+            <div class="spotlight-content">
+                <h3>Abdou Akkouche</h3>
+                <p>
+                    First author of this study, Dr. Akkouche led the investigation into how the Rhino protein is recruited
+                    to piRNA clusters through a combinatorial histone code. This work, conducted across leading institutions
+                    (GReD, CNRS, Universit&eacute; Clermont Auvergne &amp; CRUK Cambridge Institute), represents a significant
+                    contribution to our understanding of genome defense mechanisms.
+                </p>
+                <div class="tag-row">
+                    <span class="tag">Epigenetics</span>
+                    <span class="tag">piRNA Biology</span>
+                    <span class="tag">Genome Defense</span>
+                    <span class="tag">Chromatin Biology</span>
+                    <span class="tag">Drosophila Genetics</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- GLOSSARY -->
+<section>
+    <div class="container reveal">
+        <span class="section-label">Glossary</span>
+        <h2>Key terms explained</h2>
+
+        <div class="analogy-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+            <div class="analogy-card">
+                <h3>Transposable Elements</h3>
+                <p>DNA sequences that can "jump" to new positions. Like computer viruses that copy themselves across a hard drive.</p>
+            </div>
+            <div class="analogy-card">
+                <h3>piRNAs</h3>
+                <p>Tiny RNA molecules (23-30 nucleotides) that guide the defense system to recognize and silence jumping genes.</p>
+            </div>
+            <div class="analogy-card">
+                <h3>Histones</h3>
+                <p>Protein "spools" that DNA wraps around. Chemical tags on histones control which genes are active or silent.</p>
+            </div>
+            <div class="analogy-card">
+                <h3>H3K9me3</h3>
+                <p>A chemical mark meaning "keep silent." Found at heterochromatin — tightly packed, inactive DNA regions.</p>
+            </div>
+            <div class="analogy-card">
+                <h3>H3K27me3</h3>
+                <p>Another silencing mark, added by the E(z) enzyme. The newly discovered "second key" for Rhino recruitment.</p>
+            </div>
+            <div class="analogy-card">
+                <h3>Rhino</h3>
+                <p>A protein that marks the starting point for piRNA production. It reads histone tags to know where to bind.</p>
+            </div>
+            <div class="analogy-card">
+                <h3>Chromodomain</h3>
+                <p>The "reading head" part of Rhino that physically contacts and recognizes histone marks on DNA packaging.</p>
+            </div>
+            <div class="analogy-card">
+                <h3>Drosophila</h3>
+                <p>Fruit fly — a key model organism. Many of its biological mechanisms are shared with humans.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p style="margin-bottom: 8px;">
+            <strong>Full citation:</strong> Akkouche, A. et al. Binding of heterochromatin protein Rhino to a subset of piRNA clusters
+            depends on a combination of two histone marks.
+            <em>Nat. Struct. Mol. Biol.</em> <strong>32</strong>, 1517–1527 (2025).
+        </p>
+        <p>
+            <a href="https://doi.org/10.1038/s41594-025-01584-8" target="_blank" rel="noopener">
+                https://doi.org/10.1038/s41594-025-01584-8
+            </a>
+        </p>
+        <p style="margin-top: 16px; font-size: 0.7rem; color: #555;">
+            This page was created to make scientific research accessible to everyone.
+        </p>
+    </div>
+</footer>
+
+<script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
