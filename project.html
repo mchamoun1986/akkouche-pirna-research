@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdou Akkouche — Epigenetic Tumor States & Transposable Elements</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #060610;
+            --surface: #0e0e1a;
+            --surface2: #151525;
+            --surface3: #1c1c30;
+            --red: #ff4757;
+            --red-glow: rgba(255,71,87,0.15);
+            --cyan: #00d2d3;
+            --cyan-glow: rgba(0,210,211,0.12);
+            --purple: #a855f7;
+            --purple-glow: rgba(168,85,247,0.12);
+            --gold: #fbbf24;
+            --gold-glow: rgba(251,191,36,0.12);
+            --green: #34d399;
+            --text: #e4e4f0;
+            --muted: #7c7c9a;
+            --dim: #4a4a66;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.75;
+            overflow-x: hidden;
+        }
+
+        /* Ambient background */
+        .ambient {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse 600px 400px at 15% 20%, rgba(255,71,87,0.06), transparent),
+                radial-gradient(ellipse 500px 500px at 85% 60%, rgba(168,85,247,0.05), transparent),
+                radial-gradient(ellipse 400px 300px at 50% 90%, rgba(0,210,211,0.04), transparent);
+        }
+
+        /* Floating cells animation */
+        .cells-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .cell-dot {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.06;
+            animation: floatCell linear infinite;
+        }
+        @keyframes floatCell {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            10% { opacity: 0.06; }
+            90% { opacity: 0.06; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        .container {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px 0;
+        }
+
+        .top-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 36px;
+            animation: fadeIn 1s ease;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--red-glow);
+            border: 1px solid rgba(255,71,87,0.3);
+            border-radius: 50px;
+            padding: 7px 18px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--red);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .status-badge .pulse-dot {
+            width: 8px; height: 8px;
+            background: var(--red);
+            border-radius: 50%;
+            animation: pulse 2s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(255,71,87,0.4); }
+            50% { opacity: 0.7; box-shadow: 0 0 0 8px rgba(255,71,87,0); }
+        }
+
+        .field-badge {
+            background: var(--purple-glow);
+            border: 1px solid rgba(168,85,247,0.25);
+            color: var(--purple);
+            border-radius: 50px;
+            padding: 7px 18px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 24px;
+            animation: fadeUp 1s ease 0.2s both;
+        }
+
+        .hero h1 .gr {
+            background: linear-gradient(135deg, var(--red), var(--purple), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-sub {
+            font-size: 1.15rem;
+            color: var(--muted);
+            max-width: 720px;
+            margin-bottom: 40px;
+            animation: fadeUp 1s ease 0.4s both;
+        }
+
+        .hero-author {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: var(--surface);
+            border: 1px solid rgba(168,85,247,0.2);
+            border-radius: 20px;
+            padding: 22px 28px;
+            max-width: 560px;
+            animation: fadeUp 1s ease 0.6s both;
+        }
+
+        .avatar {
+            width: 60px; height: 60px;
+            background: linear-gradient(135deg, var(--red), var(--purple));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .author-meta h3 { font-size: 1.05rem; font-weight: 700; }
+        .author-meta p { font-size: 0.82rem; color: var(--muted); }
+        .author-meta .inst {
+            font-size: 0.75rem;
+            color: var(--purple);
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .scroll-cue {
+            position: absolute;
+            bottom: 36px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--dim);
+            font-size: 0.7rem;
+            text-align: center;
+            animation: bounce 2.5s ease infinite;
+        }
+        .scroll-cue .chevron {
+            display: block;
+            width: 20px; height: 20px;
+            margin: 6px auto 0;
+            border-right: 2px solid var(--dim);
+            border-bottom: 2px solid var(--dim);
+            transform: rotate(45deg);
+        }
+        @keyframes bounce {
+            0%,100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== SECTIONS ===== */
+        section { padding: 80px 0; }
+
+        .label {
+            display: inline-block;
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+        .label.red { color: var(--red); }
+        .label.cyan { color: var(--cyan); }
+        .label.purple { color: var(--purple); }
+        .label.gold { color: var(--gold); }
+        .label.green { color: var(--green); }
+
+        section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.7rem, 3.2vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        section p, section li {
+            color: var(--muted);
+            font-size: 1.02rem;
+            margin-bottom: 16px;
+        }
+
+        /* ===== CENTRAL HYPOTHESIS ===== */
+        .hypothesis-box {
+            background: linear-gradient(135deg, rgba(255,71,87,0.08), rgba(168,85,247,0.06));
+            border: 1px solid rgba(255,71,87,0.2);
+            border-radius: 24px;
+            padding: 44px 40px;
+            margin: 36px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .hypothesis-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--red), var(--purple), var(--cyan));
+        }
+        .hypothesis-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 14px;
+            color: var(--text);
+        }
+        .hypothesis-box p {
+            font-size: 1.08rem;
+            color: var(--text);
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+        .hypothesis-box .keyword {
+            color: var(--red);
+            font-weight: 700;
+        }
+
+        /* ===== ANALOGY / PLAIN ENGLISH ===== */
+        .plain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 18px;
+            margin: 36px 0;
+        }
+
+        .plain-card {
+            background: var(--surface);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px 26px;
+            transition: transform 0.3s, border-color 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .plain-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(168,85,247,0.25);
+        }
+        .plain-card .icon { font-size: 2.2rem; margin-bottom: 14px; display: block; }
+        .plain-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+        .plain-card p { font-size: 0.88rem; color: var(--muted); margin: 0; }
+
+        /* ===== BIG VISUAL: THE CHAIN ===== */
+        .chain-visual {
+            background: var(--surface);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 24px;
+            padding: 44px 36px;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .chain-visual::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--red), var(--purple), var(--cyan), var(--gold));
+        }
+        .chain-visual h3 { margin-bottom: 8px; font-size: 1.15rem; }
+        .chain-visual .sub { font-size: 0.88rem; color: var(--muted); margin-bottom: 28px; }
+
+        .chain {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .chain-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 16px 12px;
+            min-width: 130px;
+        }
+        .chain-step .circle {
+            width: 64px; height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            border: 2px solid;
+        }
+        .chain-step .circle.c-red { background: var(--red-glow); border-color: rgba(255,71,87,0.4); }
+        .chain-step .circle.c-purple { background: var(--purple-glow); border-color: rgba(168,85,247,0.4); }
+        .chain-step .circle.c-cyan { background: var(--cyan-glow); border-color: rgba(0,210,211,0.4); }
+        .chain-step .circle.c-gold { background: var(--gold-glow); border-color: rgba(251,191,36,0.4); }
+        .chain-step .s-title { font-size: 0.78rem; font-weight: 700; color: var(--text); }
+        .chain-step .s-desc { font-size: 0.7rem; color: var(--dim); margin-top: 2px; max-width: 120px; }
+
+        .chain-arrow {
+            font-size: 1.4rem;
+            color: var(--dim);
+            margin: 0 -4px;
+            padding-bottom: 30px;
+        }
+
+        /* ===== AIM CARDS ===== */
+        .aim-section {
+            margin: 48px 0;
+        }
+
+        .aim-card {
+            background: var(--surface);
+            border-radius: 24px;
+            padding: 40px 36px;
+            margin-bottom: 24px;
+            border-left: 4px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        .aim-card.aim1 { border-left-color: var(--purple); }
+        .aim-card.aim2 { border-left-color: var(--cyan); }
+        .aim-card.aim3 { border-left-color: var(--red); }
+
+        .aim-card .aim-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            position: absolute;
+            top: 20px; right: 28px;
+            opacity: 0.07;
+        }
+
+        .aim-card .aim-tag {
+            display: inline-block;
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 6px;
+            padding: 4px 12px;
+            margin-bottom: 14px;
+        }
+        .aim1 .aim-tag { background: var(--purple-glow); color: var(--purple); }
+        .aim2 .aim-tag { background: var(--cyan-glow); color: var(--cyan); }
+        .aim3 .aim-tag { background: var(--red-glow); color: var(--red); }
+
+        .aim-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .aim-card p { font-size: 0.95rem; }
+
+        .aim-card .methods {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+        .aim-card .method-tag {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: var(--text);
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .aim-card .insight {
+            margin-top: 18px;
+            padding: 14px 18px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            border-left: 3px solid;
+            font-size: 0.88rem;
+        }
+        .aim1 .insight { border-left-color: var(--purple); }
+        .aim2 .insight { border-left-color: var(--cyan); }
+        .aim3 .insight { border-left-color: var(--red); }
+        .aim-card .insight strong { color: var(--text); }
+
+        /* ===== PRELIMINARY DATA ===== */
+        .data-highlight {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .data-item {
+            text-align: center;
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 28px 16px;
+            border: 1px solid rgba(255,255,255,0.04);
+        }
+        .data-item .big {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+        .data-item:nth-child(1) .big { color: var(--red); }
+        .data-item:nth-child(2) .big { color: var(--purple); }
+        .data-item:nth-child(3) .big { color: var(--cyan); }
+        .data-item:nth-child(4) .big { color: var(--gold); }
+        .data-item .desc { font-size: 0.78rem; color: var(--muted); margin-top: 6px; }
+
+        /* ===== IMPACT ===== */
+        .impact-section {
+            background: linear-gradient(135deg, rgba(168,85,247,0.08), rgba(0,210,211,0.06), rgba(255,71,87,0.05));
+            border: 1px solid rgba(168,85,247,0.15);
+            border-radius: 28px;
+            padding: 52px 44px;
+            margin: 48px 0;
+            text-align: center;
+        }
+        .impact-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+        }
+        .impact-section p {
+            max-width: 650px;
+            margin: 0 auto 14px;
+            text-align: center;
+        }
+        .impact-pillars {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 32px;
+        }
+        .pillar {
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            padding: 24px 20px;
+            text-align: center;
+        }
+        .pillar .p-icon { font-size: 2rem; margin-bottom: 10px; display: block; }
+        .pillar h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 6px; }
+        .pillar p { font-size: 0.82rem; margin: 0; text-align: center; }
+
+        /* ===== GLOSSARY ===== */
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+            margin: 32px 0;
+        }
+        .gloss-card {
+            background: var(--surface);
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 16px;
+            padding: 22px 20px;
+        }
+        .gloss-card h4 { font-size: 0.92rem; font-weight: 700; margin-bottom: 6px; }
+        .gloss-card p { font-size: 0.82rem; color: var(--muted); margin: 0; }
+
+        /* ===== AUTHOR SPOTLIGHT ===== */
+        .spotlight {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            background: var(--surface);
+            border: 1px solid rgba(168,85,247,0.15);
+            border-radius: 24px;
+            padding: 44px 36px;
+            margin: 48px 0;
+        }
+        .spot-avatar {
+            width: 110px; height: 110px;
+            background: linear-gradient(135deg, var(--red), var(--purple), var(--cyan));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.6rem;
+            font-weight: 900;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .spot-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+        }
+        .spot-text p { font-size: 0.92rem; }
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+        .tags span {
+            background: rgba(168,85,247,0.1);
+            color: var(--purple);
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 4px 14px;
+            border-radius: 20px;
+        }
+
+        /* ===== RELATED WORK ===== */
+        .related-box {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 32px;
+            border: 1px solid rgba(251,191,36,0.15);
+            margin: 24px 0;
+        }
+        .related-box h4 { font-size: 0.95rem; margin-bottom: 8px; }
+        .related-box p { font-size: 0.88rem; }
+        .related-box a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .related-box a:hover { text-decoration: underline; }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 60px 0 40px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+        footer p { font-size: 0.78rem; color: var(--dim); margin-bottom: 6px; }
+        footer a { color: var(--purple); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 640px) {
+            .spotlight { flex-direction: column; text-align: center; padding: 28px 20px; }
+            .tags { justify-content: center; }
+            .chain { flex-direction: column; }
+            .chain-arrow { transform: rotate(90deg); padding: 0; margin: -8px 0; }
+            .hypothesis-box, .impact-section { padding: 28px 20px; }
+            .aim-card { padding: 28px 20px; }
+            .hero-author { flex-direction: column; text-align: center; }
+            .top-bar { flex-wrap: wrap; }
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+<div class="ambient"></div>
+<div class="cells-bg">
+    <div class="cell-dot" style="width:80px;height:80px;background:var(--red);left:10%;animation-duration:18s;animation-delay:0s;"></div>
+    <div class="cell-dot" style="width:50px;height:50px;background:var(--purple);left:30%;animation-duration:22s;animation-delay:3s;"></div>
+    <div class="cell-dot" style="width:60px;height:60px;background:var(--cyan);left:55%;animation-duration:20s;animation-delay:7s;"></div>
+    <div class="cell-dot" style="width:40px;height:40px;background:var(--gold);left:78%;animation-duration:25s;animation-delay:1s;"></div>
+    <div class="cell-dot" style="width:70px;height:70px;background:var(--purple);left:90%;animation-duration:19s;animation-delay:5s;"></div>
+    <div class="cell-dot" style="width:45px;height:45px;background:var(--red);left:45%;animation-duration:23s;animation-delay:10s;"></div>
+</div>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+    <div class="container">
+        <div class="top-bar">
+            <span class="status-badge"><span class="pulse-dot"></span> Research Project</span>
+            <span class="field-badge">Cancer Epigenetics</span>
+        </div>
+
+        <h1>When Tumors <span class="gr">Wake Up Sleeping Genes</span></h1>
+
+        <p class="hero-sub">
+            A research project exploring how cancer cells accidentally unlock ancient DNA parasites hidden in our genome
+            &mdash; and how these "jumping genes" may fuel tumor chaos. Explained for everyone.
+        </p>
+
+        <div class="hero-author">
+            <div class="avatar">AA</div>
+            <div class="author-meta">
+                <h3>Dr. Abdou Akkouche</h3>
+                <p>Principal Investigator</p>
+                <div class="inst">GReD &middot; CNRS &middot; Universit&eacute; Clermont Auvergne</div>
+            </div>
+        </div>
+    </div>
+    <div class="scroll-cue">scroll to explore<span class="chevron"></span></div>
+</header>
+
+<!-- ===== THE STORY ===== -->
+<section>
+    <div class="container reveal">
+        <span class="label red">The Big Picture</span>
+        <h2>Your genome has a dark side</h2>
+        <p>
+            Nearly <strong>half of your DNA</strong> is made up of <strong>transposable elements</strong> &mdash; ancient sequences that can copy themselves
+            and jump around your genome. Think of them as <strong>dormant viruses embedded in your own code</strong>.
+        </p>
+        <p>
+            Normally, your cells keep these elements asleep using chemical locks on DNA packaging (called <strong>epigenetic marks</strong>).
+            But in cancer, these locks often break. And when they do, something surprising happens&hellip;
+        </p>
+
+        <div class="plain-grid">
+            <div class="plain-card">
+                <span class="icon">🧬</span>
+                <h3>Transposable Elements</h3>
+                <p>Ancient DNA parasites that make up ~45% of the human genome. Normally silent, but potentially dangerous when awakened.</p>
+            </div>
+            <div class="plain-card">
+                <span class="icon">🔒</span>
+                <h3>Polycomb Repression</h3>
+                <p>A "locking system" that cells use to keep genes shut off. Think of it as a master switch that silences dangerous DNA regions.</p>
+            </div>
+            <div class="plain-card">
+                <span class="icon">💥</span>
+                <h3>Epigenetic Chaos in Cancer</h3>
+                <p>Tumors lose their epigenetic locks. When the Polycomb system breaks, sleeping transposable elements can wake up.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CENTRAL HYPOTHESIS ===== -->
+<section>
+    <div class="container reveal">
+        <span class="label purple">Central Hypothesis</span>
+
+        <div class="hypothesis-box">
+            <h3>The core question driving this research</h3>
+            <p>
+                When tumors lose their <span class="keyword">Polycomb locks</span>, specific cancer cell populations
+                <span class="keyword">unlock transposable elements</span>. Once awakened, these jumping genes don't just sit there &mdash;
+                they may actively contribute to <span class="keyword">genome instability</span>,
+                <span class="keyword">stress responses</span>, and <span class="keyword">tumor diversity</span>,
+                making cancers harder to treat.
+            </p>
+        </div>
+
+        <p>
+            In simpler terms: <strong>Cancer doesn't just break the locks &mdash; the things that escape may make the cancer worse.</strong>
+            This project aims to prove that and understand exactly how.
+        </p>
+    </div>
+</section>
+
+<!-- ===== THE CHAIN ===== -->
+<section>
+    <div class="container reveal">
+        <span class="label cyan">The Cascade</span>
+        <h2>From broken locks to tumor chaos</h2>
+
+        <div class="chain-visual">
+            <h3>The domino effect this project investigates</h3>
+            <p class="sub">Each step leads to the next, creating a cascade that may drive cancer progression</p>
+
+            <div class="chain">
+                <div class="chain-step">
+                    <div class="circle c-purple">🔓</div>
+                    <span class="s-title">Polycomb Lost</span>
+                    <span class="s-desc">Epigenetic locks break in tumor cells</span>
+                </div>
+                <span class="chain-arrow">&rarr;</span>
+                <div class="chain-step">
+                    <div class="circle c-red">🧬</div>
+                    <span class="s-title">TEs Wake Up</span>
+                    <span class="s-desc">Jumping genes become active</span>
+                </div>
+                <span class="chain-arrow">&rarr;</span>
+                <div class="chain-step">
+                    <div class="circle c-cyan">⚡</div>
+                    <span class="s-title">Genome Stress</span>
+                    <span class="s-desc">DNA damage, immune alarms triggered</span>
+                </div>
+                <span class="chain-arrow">&rarr;</span>
+                <div class="chain-step">
+                    <div class="circle c-gold">🎲</div>
+                    <span class="s-title">Tumor Diversity</span>
+                    <span class="s-desc">Different cells, harder to treat</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== PRELIMINARY DATA ===== -->
+<section>
+    <div class="container reveal">
+        <span class="label gold">Preliminary Discovery</span>
+        <h2>The smoking gun: TABOR</h2>
+        <p>
+            Before even starting the full project, the team made a striking observation. When they disrupted Polycomb
+            in the fruit fly eye, tumors formed &mdash; and a specific jumping gene called <strong>TABOR</strong> woke up in every single one.
+        </p>
+
+        <div class="data-highlight">
+            <div class="data-item">
+                <div class="big">100%</div>
+                <div class="desc">of tumors show TABOR activation</div>
+            </div>
+            <div class="data-item">
+                <div class="big">&uarr;</div>
+                <div class="desc">Expression increases with tumor size</div>
+            </div>
+            <div class="data-item">
+                <div class="big">&darr;</div>
+                <div class="desc">Disappears when tumor program is blocked</div>
+            </div>
+            <div class="data-item">
+                <div class="big">!</div>
+                <div class="desc">Depends on tumor state, not just epigenetic loss</div>
+            </div>
+        </div>
+
+        <p>
+            This is the key insight: <strong>TABOR activation isn't just a side effect of broken locks &mdash; it's linked to
+            the tumor identity itself.</strong> Block the tumor program, and TABOR goes back to sleep.
+        </p>
+    </div>
+</section>
+
+<!-- ===== THREE AIMS ===== -->
+<section>
+    <div class="container reveal">
+        <span class="label red">Research Plan</span>
+        <h2>Three aims to solve the puzzle</h2>
+
+        <div class="aim-section">
+            <div class="aim-card aim1">
+                <span class="aim-num">01</span>
+                <span class="aim-tag">Aim 1</span>
+                <h3>How does Polycomb keep transposable elements silent in normal tissues?</h3>
+                <p>
+                    Polycomb complexes (PRC1 &amp; PRC2) are well-known gene silencers, but their role in controlling jumping genes
+                    in non-reproductive tissues is barely understood. This aim maps which TEs are controlled by Polycomb
+                    in the fruit fly eye disc.
+                </p>
+                <div class="methods">
+                    <span class="method-tag">RNA-seq</span>
+                    <span class="method-tag">RT-qPCR</span>
+                    <span class="method-tag">RNA-FISH</span>
+                    <span class="method-tag">PRC1/PRC2 genetics</span>
+                </div>
+                <div class="insight">
+                    <strong>Early finding:</strong> Loss of Polyhomeotic (PRC1) causes selective TE changes &mdash; some activate, some get repressed &mdash; suggesting Polycomb cooperates with other silencing systems.
+                </div>
+            </div>
+
+            <div class="aim-card aim2">
+                <span class="aim-num">02</span>
+                <span class="aim-tag">Aim 2</span>
+                <h3>Does RNA interference act as a backup when Polycomb fails?</h3>
+                <p>
+                    Cells have a second defense: the <strong>siRNA pathway</strong> (RNA interference), which detects and destroys
+                    dangerous RNA. This aim tests whether RNAi steps in to compensate when Polycomb breaks down.
+                </p>
+                <div class="methods">
+                    <span class="method-tag">Small RNA-seq</span>
+                    <span class="method-tag">Ago2 mutants</span>
+                    <span class="method-tag">Double knockdowns</span>
+                </div>
+                <div class="insight">
+                    <strong>The logic:</strong> If RNAi is a backup, then removing both Polycomb AND Ago2 should cause a massive explosion of TE activity &mdash; far worse than either alone.
+                </div>
+            </div>
+
+            <div class="aim-card aim3">
+                <span class="aim-num">03</span>
+                <span class="aim-tag">Aim 3</span>
+                <h3>What happens to tumor cells when jumping genes wake up?</h3>
+                <p>
+                    The most ambitious aim: understanding the <strong>consequences</strong>. When TEs activate in tumors,
+                    do they cause DNA damage? Trigger immune-like alarms? Change which cells live or die?
+                </p>
+                <div class="methods">
+                    <span class="method-tag">RNA-FISH</span>
+                    <span class="method-tag">&gamma;H2Av (DNA damage)</span>
+                    <span class="method-tag">J2 antibody (dsRNA)</span>
+                    <span class="method-tag">PH3 (proliferation)</span>
+                    <span class="method-tag">Dcp1 (apoptosis)</span>
+                </div>
+                <div class="insight">
+                    <strong>Goal:</strong> Create single-cell maps showing exactly which tumor cells have active TEs and what stress markers they carry &mdash; revealing whether TE activation marks specific tumor fates.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== IMPACT ===== -->
+<section>
+    <div class="container reveal">
+        <div class="impact-section">
+            <span class="label green">Impact</span>
+            <h3>Why this matters for cancer research</h3>
+            <p>
+                This project proposes a radical new idea: transposable elements aren't just passive bystanders in cancer &mdash;
+                they may be <strong>active sensors and drivers</strong> of tumor instability.
+            </p>
+            <p>
+                Understanding this could open entirely new approaches to cancer diagnosis and treatment.
+            </p>
+
+            <div class="impact-pillars">
+                <div class="pillar">
+                    <span class="p-icon">🔬</span>
+                    <h4>New Framework</h4>
+                    <p>TEs as dynamic sensors of epigenetic instability in cancer</p>
+                </div>
+                <div class="pillar">
+                    <span class="p-icon">🧩</span>
+                    <h4>Tumor Heterogeneity</h4>
+                    <p>Explains how identical tumors develop diverse cell populations</p>
+                </div>
+                <div class="pillar">
+                    <span class="p-icon">🎯</span>
+                    <h4>Biomarker Potential</h4>
+                    <p>TE activation patterns could mark specific tumor states</p>
+                </div>
+                <div class="pillar">
+                    <span class="p-icon">💊</span>
+                    <h4>Therapeutic Angles</h4>
+                    <p>Understanding TE-driven stress may reveal new treatment targets</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== RELATED WORK ===== -->
+<section>
+    <div class="container reveal">
+        <span class="label gold">Building On</span>
+        <h2>Foundation of this project</h2>
+
+        <div class="related-box">
+            <h4>Published in Nature Structural & Molecular Biology (2025)</h4>
+            <p>
+                This project builds directly on Abdou's recent discovery that the protein <strong>Rhino</strong> reads a dual histone code
+                (H3K9me3 + H3K27me3) to target piRNA defense clusters. That work, involving the <strong>E(z) enzyme</strong> (the same
+                Polycomb component central to this new project), revealed how epigenetic marks control genome defense
+                in reproductive cells.
+            </p>
+            <p style="margin-top: 12px;">
+                <a href="https://doi.org/10.1038/s41594-025-01584-8" target="_blank" rel="noopener">
+                    Read the published article &rarr;
+                </a>
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== GLOSSARY ===== -->
+<section>
+    <div class="container reveal">
+        <span class="label cyan">Glossary</span>
+        <h2>Key terms explained</h2>
+
+        <div class="glossary-grid">
+            <div class="gloss-card">
+                <h4>Transposable Elements (TEs)</h4>
+                <p>DNA sequences that can copy and paste themselves around the genome. Dormant in healthy cells, but can reactivate in cancer.</p>
+            </div>
+            <div class="gloss-card">
+                <h4>Epigenetics</h4>
+                <p>Chemical modifications that control gene activity without changing the DNA sequence. Like sticky notes on a book that say "skip this chapter."</p>
+            </div>
+            <div class="gloss-card">
+                <h4>Polycomb (PRC1/PRC2)</h4>
+                <p>Protein complexes that silence genes by modifying DNA packaging. When they fail in cancer, previously locked regions open up.</p>
+            </div>
+            <div class="gloss-card">
+                <h4>TABOR</h4>
+                <p>A specific jumping gene (LTR retrotransposon) that wakes up in 100% of Polycomb-deficient tumors. The star witness of this project.</p>
+            </div>
+            <div class="gloss-card">
+                <h4>RNA Interference (RNAi)</h4>
+                <p>A cellular defense that uses small RNA molecules to detect and destroy dangerous RNA. Like a antivirus software for your cells.</p>
+            </div>
+            <div class="gloss-card">
+                <h4>Genome Instability</h4>
+                <p>When DNA accumulates damage and mutations faster than normal. A hallmark of cancer that TE activation may worsen.</p>
+            </div>
+            <div class="gloss-card">
+                <h4>Tumor Heterogeneity</h4>
+                <p>The fact that cells within the same tumor can be very different from each other. This makes cancers harder to treat.</p>
+            </div>
+            <div class="gloss-card">
+                <h4>Drosophila</h4>
+                <p>The fruit fly &mdash; a powerful model organism. Its tumor biology shares core mechanisms with human cancer, but can be studied much faster.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== AUTHOR ===== -->
+<section>
+    <div class="container reveal">
+        <span class="label purple">Principal Investigator</span>
+
+        <div class="spotlight">
+            <div class="spot-avatar">AA</div>
+            <div class="spot-text">
+                <h3>Dr. Abdou Akkouche</h3>
+                <p>
+                    Leading this project at the intersection of cancer biology and transposable element research,
+                    Dr. Akkouche brings deep expertise in epigenetics, piRNA biology, and genome defense.
+                    His recent Nature publication on dual histone mark recognition laid the groundwork
+                    for understanding how epigenetic states control jumping genes &mdash; now extended into the cancer context.
+                </p>
+                <div class="tags">
+                    <span>Cancer Epigenetics</span>
+                    <span>Transposable Elements</span>
+                    <span>Genome Defense</span>
+                    <span>Polycomb Biology</span>
+                    <span>Drosophila Genetics</span>
+                    <span>RNA Interference</span>
+                    <span>Tumor Biology</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p><strong>Dr. Abdou Akkouche</strong> &middot; GReD, CNRS, Universit&eacute; Clermont Auvergne</p>
+        <p>Research project: Epigenetic tumor states, transposable elements &amp; tumor heterogeneity</p>
+        <p style="margin-top: 12px; font-size: 0.68rem;">
+            This page was created to make cutting-edge research accessible to everyone.
+        </p>
+    </div>
+</footer>
+
+<script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
